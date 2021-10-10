@@ -17,3 +17,13 @@ What it will contain
 - Environment obstacle maybe
 
 
+#User Story
+- As an user I want to be able to start the game
+- As an user I want to be able to control my character
+- As an user I want to be able to defend myself from enemies
+- As an user I want to be able to move around
+- As an user I want to be able to see my health
+- As an user I want to be able to see my end score
+- As an user I want to be able to know if I beat the highscore
+- As an user I want to be able to close the game
+
