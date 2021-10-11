@@ -1,29 +1,23 @@
-# My Game
+# Horror game
 
-## About my game
+## Introduction
 
-My project will be a simple **tank** or *spaceship* type game. The main idea is simply you controlling one entity which 
-has to fend off against enemies until you get overwhelmed and get a score or time survived at the end. The game will 
-contain a simple GUI allowing the player to start and close the game. There will be the main entity which the player 
-will be able to control as well as cpu controlled entity that the player will need to play against. I might also decide 
-to add environment obstacles. The game itself will take place in the same window the menu will be in. People that are 
-interested in my game will play it. I am interested in this project because I've always wanted to make game, so I saw 
-this as a good opportunity to do so.
+My project will be a simple text horror game (**Name to be decided**). The main idea is a game that progresses by letting the player make 
+decisions, almost like a multiple choice test where each decisions will affect how the story will end. The variety in
+options will allow the player to have a unique experience after each run.
 
-What it will contain
-- Gui (menu and game will take place in same window)
-- Main entity
-- Opposing entities
-- Environment obstacle maybe
+## Target Audience
 
+This game is targeted towards players that enjoy a relaxing yet thrilling experience.
+
+## Why I wanted to make this
+
+I have always loved simple horror games containing short but interesting stories. The thought of making a
+game that contained different endings also really appealed to me. As such, I saw a text game as the perfect fit for
+these traits. The limitless possibilities inside of a text game is also a good opportunity to utilize my creativity.
 
 #User Story
 - As an user I want to be able to start the game
-- As an user I want to be able to control my character
-- As an user I want to be able to defend myself from enemies
-- As an user I want to be able to move around
-- As an user I want to be able to see my health
-- As an user I want to be able to see my end score
-- As an user I want to be able to know if I beat the highscore
+- As an user I want to be able to choose a decision
 - As an user I want to be able to close the game
 
