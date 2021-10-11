@@ -19,5 +19,6 @@ these traits. The limitless possibilities inside of a text game is also a good o
 #User Story
 - As an user I want to be able to start the game
 - As an user I want to be able to choose a decision
+- As an user I want to be able to understand my surrounding environment
 - As an user I want to be able to close the game
 
