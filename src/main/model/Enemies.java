@@ -47,6 +47,12 @@ public class Enemies {
     }
 
     //MODIFY: this
+    //EFFECT: Return health after damage
+    public int healthDmg(int d) {
+        return health - d;
+    }
+
+    //MODIFY: this
     //EFFECT: Constraint enemy inside game boundaries on x axis
     public void xboundary() {
         if (xcoord < 0) {
@@ -61,8 +67,8 @@ public class Enemies {
     public void yboundary() {
         if (ycoord < 0) {
             ycoord = 0;
-        } else if (ycoord > Map.Height) {
-            ycoord = Map.Height;
+        } else if (ycoord > Map.HEIGHT) {
+            ycoord = Map.HEIGHT;
         }
     }
 
@@ -79,5 +85,10 @@ public class Enemies {
     //EFFECT: Return the y coordinate
     public int getYcoord() {
         return ycoord;
+    }
+
+    //EFFECT: Return health of enemy
+    public int getHealth() {
+        return health;
     }
 }

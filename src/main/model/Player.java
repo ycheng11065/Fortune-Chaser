@@ -25,7 +25,7 @@ public class Player {
         this.ycoord = y;
         this.health = h;
         this.direction = d;
-        direction = "front";
+        direction = "UP";
     }
 
     //MODIFY: this
@@ -52,29 +52,29 @@ public class Player {
         xcoord = xcoord - RATEY;
     }
 
-    //MODIFY: this
-    //EFFECT: Player face front
-    public void faceFront() {
-        direction = "Front";
-    }
-
-    //MODIFY: this
-    //EFFECT: Player face right
-    public void faceRight() {
-        direction = "Right";
-    }
-
-    //MODIFY: this
-    //EFFECT: Player face down
-    public void faceDown() {
-        direction = "Down";
-    }
-
-    //MODIFY: this
-    //EFFECT: Player face left
-    public void faceLeft() {
-        direction = "Left";
-    }
+//    //MODIFY: this
+//    //EFFECT: Player face front
+//    public void faceFront() {
+//        direction = "Front";
+//    }
+//
+//    //MODIFY: this
+//    //EFFECT: Player face right
+//    public void faceRight() {
+//        direction = "Right";
+//    }
+//
+//    //MODIFY: this
+//    //EFFECT: Player face down
+//    public void faceDown() {
+//        direction = "Down";
+//    }
+//
+//    //MODIFY: this
+//    //EFFECT: Player face left
+//    public void faceLeft() {
+//        direction = "Left";
+//    }
 
     //EFFECT: Return true if hit by enemies
     public boolean isHit() {
@@ -103,8 +103,8 @@ public class Player {
     public void yboundary() {
         if (ycoord < 0) {
             ycoord = 0;
-        } else if (ycoord > Map.Height) {
-            ycoord = Map.Height;
+        } else if (ycoord > Map.HEIGHT) {
+            ycoord = Map.HEIGHT;
         }
 
     }
@@ -122,6 +122,15 @@ public class Player {
     //EFFECT: Return y coordinate
     public int getYcoord() {
         return ycoord;
+    }
+
+    //EFFECT: Return direction
+    public String getDirection() {
+        return direction;
+    }
+
+    public int getHealth() {
+        return health;
     }
 
 }
