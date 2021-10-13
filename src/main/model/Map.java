@@ -32,6 +32,8 @@ public class Map {
         start();
     }
 
+    //MODIFY: this
+    //EFFECT: Start game, clear screen, spawn player
     public void start() {
         enemies.clear();
         bullets.clear();
@@ -40,7 +42,17 @@ public class Map {
         enemieScore = 0;
     }
 
+    //MODIFY: this
+    //EFFECT: Update movement, Bullets and enemies
     public void update() {
+        moveBullet();
+//      moveEnemies();
+//      movePlayer();
+
+        hitBullet();
+        spawnEnemies();
+        bulletBoundary();
+        gameOver();
 
     }
 
@@ -88,8 +100,9 @@ public class Map {
 
     }
 
+    //EFFECT: Spawn enemies every two seconds;
     public void spawnEnemies() {
-        while (isGameOver != false) {
+        while (isGameOver == false) {
             int a = 0;
             a++;
             if (a % 2000 == 0) {
@@ -99,6 +112,7 @@ public class Map {
 
     }
 
+    //EFFECT: Randomly select where enemy will spawn
     public void randomizer() {
         int randomNum = RAND.nextInt(3);
 
