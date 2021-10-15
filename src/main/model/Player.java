@@ -25,63 +25,46 @@ public class Player {
         this.ycoord = y;
         this.health = h;
         this.direction = d;
-        direction = "UP";
     }
 
     //MODIFY: this
     //EFFECT: Player move up
     public void moveUp() {
         ycoord = ycoord + RATEY;
+
+        yboundary();
     }
 
     //MODIFY: this
     //EFFECT: Player move down
     public void moveDown() {
         ycoord = ycoord - RATEY;
+
+        yboundary();
     }
 
     //MODIFY: this
     //EFFECT: Player move right
     public void moveRight() {
-        xcoord = xcoord + RATEX;
+        xcoord = xcoord - RATEX;
+
+        xboundary();
     }
 
     //MODIFY: this
     //EFFECT: Player move left
     public void moveLeft() {
-        xcoord = xcoord - RATEY;
+        xcoord = xcoord + RATEX;
+
+        xboundary();
     }
 
-//    //MODIFY: this
-//    //EFFECT: Player face front
-//    public void faceFront() {
-//        direction = "Front";
-//    }
-//
-//    //MODIFY: this
-//    //EFFECT: Player face right
-//    public void faceRight() {
-//        direction = "Right";
-//    }
-//
-//    //MODIFY: this
-//    //EFFECT: Player face down
-//    public void faceDown() {
-//        direction = "Down";
-//    }
-//
-//    //MODIFY: this
-//    //EFFECT: Player face left
-//    public void faceLeft() {
-//        direction = "Left";
-//    }
-
     //EFFECT: Return true if hit by enemies
-    public boolean isHit() {
+    public boolean isHit(Enemies e) {
         Rectangle playerRectangle = new Rectangle(getXcoord() - SIZEX / 2,
-                getXcoord() - SIZEY / 2, SIZEX, SIZEY);
-        Rectangle enemyRectangle = new Rectangle(getXcoord() - SIZEX / 2,
-                getXcoord() - SIZEY / 2, Enemies.SIZEX, Enemies.SIZEY);
+                getYcoord() - SIZEY / 2, SIZEX, SIZEY);
+        Rectangle enemyRectangle = new Rectangle(e.getXcoord() - SIZEX / 2,
+                e.getYcoord() - SIZEY / 2, e.SIZEX, e.SIZEY);
         return playerRectangle.intersects(enemyRectangle);
 
     }
@@ -89,7 +72,7 @@ public class Player {
 
     //MODIFY: this
     //EFFECT: Constrain player from leaving game boundary on x axis
-    public void xboundary() {
+    private void xboundary() {
         if (xcoord < 0) {
             xcoord = 0;
         } else if (xcoord > Map.WIDTH) {
@@ -109,9 +92,8 @@ public class Player {
 
     }
 
-    //EFFECT: Returns true if health is above 0
-    public boolean isAlive() {
-        return (health > 0);
+    public void healthDmg(int d) {
+        health = health - d;
     }
 
     //EFFECT: Return x coordinate
@@ -129,8 +111,13 @@ public class Player {
         return direction;
     }
 
+    //EFFECT: Return player health
     public int getHealth() {
         return health;
+    }
+
+    public void playerChangeDirection(String d) {
+        direction = d;
     }
 
 }

@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+// SOURCE: SpaceInvaderBase
+
 public class Map {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 800;
-    public static final int MAX_BULLETS = 40;
+    public static final int MAX_BULLETS = 10;
+    public static final int MAX_Enemies = 10;
     public static final int BULLET_DMG = 10;
     public static final Random RAND = new Random();
-    public static final int SPAWN_RATE = 5;
+    public static final int SPAWN_RATE = 5; // Millisecond
     public static final Enemies TOP_ENEMY = new Enemies(WIDTH / 2, 1, 30, "DOWN");
     public static final Enemies BOT_ENEMY = new Enemies(WIDTH / 2, HEIGHT + 1, 30, "TOP");
     public static final Enemies RIG_ENEMY = new Enemies(1, HEIGHT / 2, 30, "RIGHT");
@@ -24,6 +27,7 @@ public class Map {
     private Player player;
     private boolean isGameOver;
     private int enemieScore;
+    private int counter = 0;
 
     //EFFECT: Create empty list of bullets and enemies, spawns the player
     public Map() {
@@ -37,7 +41,7 @@ public class Map {
     public void start() {
         enemies.clear();
         bullets.clear();
-        Player ply = new Player(20, 20, 60, "UP");
+        player = new Player(20, 20, 60, "UP");
         isGameOver = false;
         enemieScore = 0;
     }
@@ -60,12 +64,16 @@ public class Map {
         if (bullets.size() < MAX_BULLETS) {
             if (player.getDirection() == "DOWN") {
                 Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "DOWN");
+                bullets.add(b);
             } else if (player.getDirection() == "UP") {
                 Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "UP");
+                bullets.add(b);
             } else if (player.getDirection() == "RIGHT") {
                 Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "RIGHT");
+                bullets.add(b);
             } else {
                 Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "LEFT");
+                bullets.add(b);
             }
         }
 
@@ -78,10 +86,15 @@ public class Map {
 
     }
 
-//    public void moveEnemies() {
-//        for (Enemies next : enemies) {
-//            next.move();
-//        }
+    public void moveEnemies() {
+        for (Enemies next : enemies) {
+            next.move(player);
+        }
+
+    }
+
+      // Unable to put user keyboard input yet
+//    public void movePlayer() {
 //
 //    }
 
@@ -103,10 +116,13 @@ public class Map {
     //EFFECT: Spawn enemies every two seconds;
     public void spawnEnemies() {
         while (isGameOver == false) {
-            int a = 0;
-            a++;
-            if (a % 2000 == 0) {
+            counter++;
+            if (counter % SPAWN_RATE == 0) {
                 randomizer();
+                if (enemies.size() == MAX_Enemies) {
+                    break;
+                }
+
             }
         }
 
@@ -144,7 +160,7 @@ public class Map {
         }
 
         enemies.removeAll(enemiesRemove);
-        bulletsRemove.removeAll(bulletsRemove);
+        bullets.removeAll(bulletsRemove);
 
     }
 
@@ -172,5 +188,31 @@ public class Map {
             bullets.clear();
         }
 
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ArrayList<Bullets> getBullets() {
+        return bullets;
+    }
+
+    public ArrayList<Enemies> getEnemies() {
+        return enemies;
+    }
+
+    public boolean getisGameOver() {
+        return isGameOver;
+    }
+
+    public Enemies randomTest(ArrayList<Enemies> a, Enemies target) {
+        Enemies en = null;
+        for (Enemies next: a) {
+            if (next == target) {
+                en = next;
+            }
+        }
+        return en;
     }
 }

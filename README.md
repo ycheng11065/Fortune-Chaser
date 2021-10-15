@@ -16,3 +16,8 @@ What it will contain
 - Opposing entities
 - Environment obstacle maybe
 
+
+- As an user I want to be able to move my character
+- As an user I want to be able to shoot
+- As an user I want to have enemies to shoot at
+- As an user I want to be able to eliminate those enemies

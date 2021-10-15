@@ -2,10 +2,12 @@ package model;
 
 import java.awt.*;
 
+// SOURCE: SpaceInvaderBase
+
 public class Bullets {
 
-    public static final int SIZEX = 6;
-    public static final int SIZEY = 6;
+    public static final int SIZEX = 20;
+    public static final int SIZEY = 20;
     public static final int XRATE = 2;
     public static final int YRATE = 2;
     public static final Color COLOR = new Color(0,0,0);
@@ -19,20 +21,21 @@ public class Bullets {
     public Bullets(int x, int y, String dir) {
         this.xcoord = x;
         this.ycoord = y;
+        this.dir = dir;
 
     }
 
     // MODIFY: this
     //EFFECT: Move the bullet in the direction it is already in
     public void move() {
-        if (dir == "Down") {
+        if (dir == "DOWN") {
             ycoord = ycoord - YRATE;
-        } else if (dir == "Up") {
+        } else if (dir == "UP") {
             ycoord = ycoord + YRATE;
-        } else if (dir == "Right") {
-            xcoord = xcoord + XRATE;
-        } else {
+        } else if (dir == "RIGHT") {
             xcoord = xcoord - XRATE;
+        } else {
+            xcoord = xcoord + XRATE;
         }
 
     }

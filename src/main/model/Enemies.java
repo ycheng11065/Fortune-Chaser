@@ -4,11 +4,13 @@ import com.sun.glass.ui.Size;
 
 import java.awt.*;
 
+// SOURCE: SpaceInvaderBase
+
 public class Enemies {
 
     public static final int HEALTH = 30;
-    public static final int SIZEX = 60; // Appearance will be changed
-    public static final int SIZEY = 60; // into animated image?
+    public static final int SIZEX = 20; // Appearance will be changed
+    public static final int SIZEY = 20; // into animated image?
     public static final Color COLOUR = new Color(0, 255, 0);
     public static final int RATEY = 2;
     public static final int RATEX = 2;
@@ -28,12 +30,17 @@ public class Enemies {
     }
 
     //MODIFY: this
-    //EFFECT: Move in the direction of player
-
-    // Use triangles??
+    //EFFECT: Chase player
     public void move(Player p) {
-        xcoord = p.getXcoord() - xcoord;
-        ycoord = p.getYcoord() - ycoord;
+        int xdif = 0;
+        int ydif = 0;
+        xdif = p.getXcoord() - xcoord;
+        ydif = p.getYcoord() - ycoord;
+
+        float angle = (float)Math.atan2(xdif, ydif); //Finds theta
+
+        xcoord += RATEX * Math.cos(angle); // finds unknown x using hyp * sin
+        ycoord += RATEX * Math.cos(angle); // finds unknown y using hyp * cos
     }
 
     //EFFECT: Return true if bullet hit enemy
@@ -48,33 +55,8 @@ public class Enemies {
 
     //MODIFY: this
     //EFFECT: Return health after damage
-    public int healthDmg(int d) {
-        return health - d;
-    }
-
-    //MODIFY: this
-    //EFFECT: Constraint enemy inside game boundaries on x axis
-    public void xboundary() {
-        if (xcoord < 0) {
-            xcoord = 0;
-        } else if (xcoord > Map.WIDTH) {
-            xcoord = Map.WIDTH;
-        }
-    }
-
-    //MODIFY: this
-    //EFFECT: Constraint enemy inside game boundaries on y axis
-    public void yboundary() {
-        if (ycoord < 0) {
-            ycoord = 0;
-        } else if (ycoord > Map.HEIGHT) {
-            ycoord = Map.HEIGHT;
-        }
-    }
-
-    //EFFECT: Returns true if health is above 0
-    public boolean isAlive() {
-        return (health > 0);
+    public void healthDmg(int d) {
+        health = health - d;
     }
 
     //EFFECT: Return the x coordinate
