@@ -40,28 +40,82 @@ public class testMap {
         b6 = new Bullets(0, 0, "DOWN");
         b7 = new Bullets(30, 30, "RIGHT");
         b8 = new Bullets(40, 40, "LEFT");
-        b9 = new Bullets(50, 50, "RIGHT");
-        b10 = new Bullets(60, 60, "LEFT");
+        b9 = new Bullets(50, 50, "DOWN");
+        b10 = new Bullets(60, 60, "UP");
         b11 = new Bullets(0, 0, "LEFT");
 
     }
 
-//    @Test
-//    public void startTest() {
-//
-//
-//    }
+    @Test
+    public void updateTest() {
+        Enemies en2 = new Enemies(5, 5, 20, "DOWN");
+        int en2dx = map.getPlayer().getXcoord() - en2.getXcoord();
+        int en2dy = map.getPlayer().getYcoord() - en2.getYcoord();
 
-//    @Test
-//    public void fire() {
-//
-//        assertEquals(map.fire(), 0);
-//
-//    }
+        float a2 = (float)Math.atan2(en2dx, en2dy);
+
+        map.getEnemies().add(en2);
+
+        map.update();
+
+        assertEquals((int)(5 + en2.RATEX *Math.cos(a2)), en2.getXcoord());
+        assertEquals((int)(5 + en2.RATEY *Math.sin(a2)), en2.getYcoord());
+
+
+    }
+
+    @Test
+    public void fire() {
+
+        Bullets ba = new Bullets(map.getPlayer().getXcoord(), map.getPlayer().getYcoord() + 1 / 2, "UP");
+        map.fire();
+        assertEquals(map.getBullets().get(0).getXcoord(), ba.getXcoord());
+        assertEquals(map.getBullets().get(0).getYcoord(), ba.getYcoord());
+        assertEquals(map.getBullets().get(0).getDir(), ba.getDir());
+
+        Bullets bb = new Bullets(map.getPlayer().getXcoord(), map.getPlayer().getYcoord() - 1 / 2, "DOWN");
+        map.getPlayer().playerChangeDirection("DOWN");
+        map.fire();
+        assertEquals(map.getBullets().get(1).getXcoord(), bb.getXcoord());
+        assertEquals(map.getBullets().get(1).getYcoord(), bb.getYcoord());
+        assertEquals(map.getBullets().get(1).getDir(), bb.getDir());
+
+        Bullets bc = new Bullets(map.getPlayer().getXcoord() - 1 / 2, map.getPlayer().getYcoord(), "RIGHT");
+        map.getPlayer().playerChangeDirection("RIGHT");
+        map.fire();
+        assertEquals(map.getBullets().get(2).getXcoord(), bc.getXcoord());
+        assertEquals(map.getBullets().get(2).getYcoord(), bc.getYcoord());
+        assertEquals(map.getBullets().get(2).getDir(), bc.getDir());
+
+        Bullets bd = new Bullets(map.getPlayer().getXcoord() + 1 / 2, map.getPlayer().getYcoord(), "LEFT");
+        map.getPlayer().playerChangeDirection("LEFT");
+        map.fire();
+        assertEquals(map.getBullets().get(3).getXcoord(), bd.getXcoord());
+        assertEquals(map.getBullets().get(3).getYcoord(), bd.getYcoord());
+        assertEquals(map.getBullets().get(3).getDir(), bd.getDir());
+    }
 
     @Test
     public void moveBulletTest() {
         map.getBullets().add(b1);
+        map.getBullets().add(b7);
+        map.getBullets().add(b8);
+        map.getBullets().add(b9);
+
+        map.moveBullet();
+
+        assertEquals(b1.getXcoord(), 0);
+        assertEquals(b1.getYcoord(), 2);
+
+        assertEquals(b7.getXcoord(), 28);
+        assertEquals(b7.getYcoord(), 30);
+
+        assertEquals(b8.getXcoord(), 42);
+        assertEquals(b8.getYcoord(), 40);
+
+        assertEquals(b9.getXcoord(), 50);
+        assertEquals(b9.getYcoord(), 48);
+
     }
 
     @Test

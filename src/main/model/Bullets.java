@@ -50,4 +50,8 @@ public class Bullets {
         return ycoord;
     }
 
+    public String getDir() {
+        return dir;
+    }
+
 }

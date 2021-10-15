@@ -1,6 +1,9 @@
 package ui;
 
-public class Main {
+public class Zombie {
+
+
+
     public static void main(String[] args) {
 
     }

@@ -39,7 +39,6 @@ public class Player {
     //EFFECT: Player move down
     public void moveDown() {
         ycoord = ycoord - RATEY;
-
         yboundary();
     }
 
@@ -47,7 +46,6 @@ public class Player {
     //EFFECT: Player move right
     public void moveRight() {
         xcoord = xcoord - RATEX;
-
         xboundary();
     }
 

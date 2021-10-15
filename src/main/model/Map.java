@@ -50,7 +50,7 @@ public class Map {
     //EFFECT: Update movement, Bullets and enemies
     public void update() {
         moveBullet();
-//      moveEnemies();
+        moveEnemies();
 //      movePlayer();
 
         hitBullet();
@@ -63,16 +63,16 @@ public class Map {
     public void fire() {
         if (bullets.size() < MAX_BULLETS) {
             if (player.getDirection() == "DOWN") {
-                Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "DOWN");
+                Bullets b = new Bullets(player.getXcoord(), player.getYcoord() - 1 / 2, "DOWN");
                 bullets.add(b);
             } else if (player.getDirection() == "UP") {
-                Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "UP");
+                Bullets b = new Bullets(player.getXcoord(), player.getYcoord() + 1 / 2, "UP");
                 bullets.add(b);
             } else if (player.getDirection() == "RIGHT") {
-                Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "RIGHT");
+                Bullets b = new Bullets(player.getXcoord() - 1 / 2, player.getYcoord(), "RIGHT");
                 bullets.add(b);
             } else {
-                Bullets b = new Bullets(player.getXcoord(), player.getYcoord(), "LEFT");
+                Bullets b = new Bullets(player.getXcoord() + 1 / 2, player.getYcoord(), "LEFT");
                 bullets.add(b);
             }
         }
@@ -92,8 +92,6 @@ public class Map {
         }
 
     }
-
-      // Unable to put user keyboard input yet
 //    public void movePlayer() {
 //
 //    }
