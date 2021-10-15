@@ -2,7 +2,7 @@
 
 ## About my game
 
-My project will be a simple **tank** or *spaceship* type game. The main idea is simply you controlling one entity which
+My project will be a simple **ZOMBIE** type game. The main idea is simply you controlling one entity which
 has to fend off against enemies until you get overwhelmed and get a score or time survived at the end. The game will
 contain a simple GUI allowing the player to start and close the game. There will be the main entity which the player
 will be able to control as well as cpu controlled entity that the player will need to play against. I might also decide
@@ -17,7 +17,7 @@ What it will contain
 - Environment obstacle maybe
 
 
-- As an user I want to be able to move my character
+- As an user I want to be able to move my character 
 - As an user I want to be able to shoot
 - As an user I want to have enemies to shoot at
 - As an user I want to be able to eliminate those enemies

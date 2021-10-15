@@ -19,7 +19,7 @@ public class Player {
     private int ycoord;
     private String direction;
 
-    //EFFECT: Creates the player facing the front at the x and y coordinate
+    //EFFECT: Creates the player at the desired x y coordinate with health and direction
     public Player(int x, int y, int h, String d) {
         this.xcoord = x;
         this.ycoord = y;
@@ -90,6 +90,8 @@ public class Player {
 
     }
 
+    //MODIFY: this
+    //EFFECT: Apply damage to player health
     public void healthDmg(int d) {
         health = health - d;
     }
@@ -114,6 +116,8 @@ public class Player {
         return health;
     }
 
+    //MODIFY: this
+    //EFFECT: Change Direction of player
     public void playerChangeDirection(String d) {
         direction = d;
     }

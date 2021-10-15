@@ -1,7 +1,5 @@
 package model;
 
-import sun.font.TrueTypeFont;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +11,7 @@ public class Map {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 800;
     public static final int MAX_BULLETS = 10;
-    public static final int MAX_Enemies = 10;
+    public static final int MAX_ENEMIES = 10;
     public static final int BULLET_DMG = 10;
     public static final Random RAND = new Random();
     public static final int SPAWN_RATE = 5; // Millisecond
@@ -51,7 +49,7 @@ public class Map {
     public void update() {
         moveBullet();
         moveEnemies();
-//      movePlayer();
+        movePlayer("UP");
 
         hitBullet();
         spawnEnemies();
@@ -60,6 +58,8 @@ public class Map {
 
     }
 
+    //MODIFY: this
+    //EFFECT: Spawn bullets at player location and add it to bullet list
     public void fire() {
         if (bullets.size() < MAX_BULLETS) {
             if (player.getDirection() == "DOWN") {
@@ -79,6 +79,7 @@ public class Map {
 
     }
 
+    //EFFECT: Move the bullets inside list
     public void moveBullet() {
         for (Bullets next : bullets) {
             next.move();
@@ -86,18 +87,39 @@ public class Map {
 
     }
 
+    //EFFECT: Move the enemies inside the list
     public void moveEnemies() {
         for (Enemies next : enemies) {
             next.move(player);
         }
 
     }
-//    public void movePlayer() {
-//        if (String s = "UP") {
-//
-//        }
-//
-//    }
+
+    //REQUIRE: Proper text command
+    //MODIFY: this
+    //EFFECT: Control player based on text input
+    public void movePlayer(String cmd) {
+        if (cmd == "UP") {
+            player.playerChangeDirection("UP");
+            player.moveUp();
+            System.out.println("up");
+        } else if (cmd == "DOWN") {
+            player.playerChangeDirection("DOWN");
+            player.moveDown();
+            System.out.println("down");
+
+        } else if (cmd == "RIGHT") {
+            player.playerChangeDirection("RIGHT");
+            player.moveRight();
+            System.out.println("right");
+
+        } else if (cmd == "LEFT") {
+            player.playerChangeDirection("LEFT");
+            player.moveLeft();
+            System.out.println("left");
+        }
+
+    }
 
     //MODIFY: this
     //EFFECT: If bullet leaves boundary then delete it
@@ -114,21 +136,23 @@ public class Map {
 
     }
 
-    //EFFECT: Spawn enemies every two seconds;
+    //MODIFIES: This
+    //EFFECT: Spawn enemies every SPAWN_RATE milliseconds, stops when MAX_Enemies reached
     public void spawnEnemies() {
-        while (isGameOver == false) {
+        while (isGameOver == false && enemies.size() != MAX_ENEMIES) {
             counter++;
             if (counter % SPAWN_RATE == 0) {
                 randomizer();
-                if (enemies.size() == MAX_Enemies) {
+                if (enemies.size() == MAX_ENEMIES) {
                     break;
                 }
-
+                break;
             }
         }
 
     }
 
+    //MODIFIES: This
     //EFFECT: Randomly select where enemy will spawn
     public void randomizer() {
         int randomNum = RAND.nextInt(3);
@@ -177,7 +201,9 @@ public class Map {
         return false;
     }
 
-
+    //MODIFY: this
+    //EFFECT: Change value of isGameOver to true if player is dead, clear bullet and enemy
+    // list if isGameOver is true
     public void gameOver() {
         if (player.getHealth() <= 0) {
             isGameOver = true;
@@ -191,22 +217,27 @@ public class Map {
 
     }
 
+    //EFFECT: Return player
     public Player getPlayer() {
         return player;
     }
 
+    //EFFECT: Return bullet list
     public ArrayList<Bullets> getBullets() {
         return bullets;
     }
 
+    //EFFECT: Return enemy list
     public ArrayList<Enemies> getEnemies() {
         return enemies;
     }
 
+    //EFFECT: Return true if game is over, false if game is not over
     public boolean getisGameOver() {
         return isGameOver;
     }
 
+    //EFFECT: Help test randomizer, search for the wanted enemy and returns it
     public Enemies randomTest(ArrayList<Enemies> a, Enemies target) {
         Enemies en = null;
         for (Enemies next: a) {

@@ -96,6 +96,31 @@ public class TestMap {
     }
 
     @Test
+    public void movePlayerTest() {
+        map.movePlayer("UP");
+        assertEquals(map.getPlayer().getDirection(), "UP");
+        assertEquals(map.getPlayer().getYcoord(), 20 + map.getPlayer().RATEY);
+        assertEquals(map.getPlayer().getXcoord(), 20);
+
+        map.movePlayer("DOWN");
+        assertEquals(map.getPlayer().getDirection(), "DOWN");
+        assertEquals(map.getPlayer().getYcoord(), 22 - map.getPlayer().RATEY);
+        assertEquals(map.getPlayer().getXcoord(), 20);
+
+        map.movePlayer("RIGHT");
+        assertEquals(map.getPlayer().getDirection(), "RIGHT");
+        assertEquals(map.getPlayer().getYcoord(), 20);
+        assertEquals(map.getPlayer().getXcoord(), 20 - map.getPlayer().RATEX);
+
+        map.movePlayer("LEFT");
+        assertEquals(map.getPlayer().getDirection(), "LEFT");
+        assertEquals(map.getPlayer().getYcoord(), 20);
+        assertEquals(map.getPlayer().getXcoord(), 18 + map.getPlayer().RATEX);
+
+
+    }
+
+    @Test
     public void moveBulletTest() {
         map.getBullets().add(b1);
         map.getBullets().add(b7);
@@ -167,7 +192,12 @@ public class TestMap {
     @Test
     public void spawnTest() {
         map.spawnEnemies();
-        assertEquals(map.getEnemies().size(), 10);
+        map.spawnEnemies();
+        assertEquals(map.getEnemies().size(), 2);
+        map.spawnEnemies();
+        map.spawnEnemies();
+        assertEquals(map.getEnemies().size(), 4);
+
     }
 
     @Test

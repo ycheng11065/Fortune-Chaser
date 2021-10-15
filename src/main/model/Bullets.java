@@ -17,7 +17,7 @@ public class Bullets {
     private int ycoord;
     private String dir;
 
-    //EFFECT: Construct a bullet
+    //EFFECT: Construct a bullet at xy coordinate with direction
     public Bullets(int x, int y, String dir) {
         this.xcoord = x;
         this.ycoord = y;
@@ -50,6 +50,7 @@ public class Bullets {
         return ycoord;
     }
 
+    //EFFECT: Return direction of bullet
     public String getDir() {
         return dir;
     }

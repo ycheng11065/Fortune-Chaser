@@ -21,7 +21,7 @@ public class Enemies {
     private int ycoord;
     private String direction;
 
-    //EFFECT: Create enemy
+    //EFFECT: Create enemy in the desired xy coordinate with health and direction
     public Enemies(int x, int y, int h, String dir) {
         this.xcoord = x;
         this.ycoord = y;
@@ -73,4 +73,5 @@ public class Enemies {
     public int getHealth() {
         return health;
     }
+
 }
