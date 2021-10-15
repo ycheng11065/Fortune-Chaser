@@ -5,6 +5,8 @@ import model.Map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
+import java.util.*;
+import java.util.Scanner;
 
 public class Zombie {
 
@@ -16,6 +18,7 @@ public class Zombie {
     public Zombie() {
         game =  new Map();
         addCounter();
+//        play();
 
     }
 
@@ -32,6 +35,17 @@ public class Zombie {
         t1.start();
 
     }
+
+//    public void play() {
+//
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Move Player: 1 - Up, 2 - Down, 3 - Right, 4 - Left ");
+//        int n = sc.nextInt();
+//
+//
+//    }
+
+
 
 
 

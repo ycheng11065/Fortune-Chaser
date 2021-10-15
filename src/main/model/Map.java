@@ -93,6 +93,9 @@ public class Map {
 
     }
 //    public void movePlayer() {
+//        if (String s = "UP") {
+//
+//        }
 //
 //    }
 

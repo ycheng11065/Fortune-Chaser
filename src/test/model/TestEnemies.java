@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class testEnemies {
+class TestEnemies {
 
     private static final int XSPAWN = Map.WIDTH / 2;
     private static final int YSPAWN = Map.HEIGHT / 2;
