@@ -21,8 +21,15 @@ public class Zombie {
         game =  new Map();
         addCounter();
         play();
+    }
 
+    public void play() {
 
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Move Player: 1 - Up, 2 - Down, 3 - Right, 4 - Left, 5 - Shoot ");
+        String n = sc.nextLine();
+        //String strCommand = Integer.toString(n);
+        game.cmdReceived(n);
     }
 
 
@@ -40,23 +47,6 @@ public class Zombie {
     }
 
 
-
-    public void play() {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Move Player: 1 - Up, 2 - Down, 3 - Right, 4 - Left, 5 - Shoot ");
-        int n = sc.nextInt();
-        if (n == 1) {
-            game.movePlayer("UP");
-        } else if (n == 2) {
-            game.movePlayer("DOWN");
-        } else if (n == 3) {
-            game.movePlayer("RIGHT");
-        } else if (n == 5) {
-            game.movePlayer("LEFT");
-        }
-
-    }
 
 
 

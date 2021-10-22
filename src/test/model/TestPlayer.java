@@ -178,6 +178,9 @@ public class TestPlayer {
 
         player.playerChangeDirection("LEFT");
         assertEquals(player.getDirection(), "LEFT");
+
+        player.playerChangeDirection("UP");
+        assertEquals(player.getDirection(), "UP");
     }
 
     @Test

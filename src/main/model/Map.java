@@ -1,8 +1,12 @@
 package model;
 
+import ui.Commands;
+import ui.Zombie;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 // SOURCE: SpaceInvaderBase
 
@@ -47,15 +51,26 @@ public class Map {
     //MODIFY: this
     //EFFECT: Update movement, Bullets and enemies
     public void update() {
+        Commands cmd = new Commands();
         moveBullet();
+        spawnEnemies();
+        updateEnemiesLocation();
         moveEnemies();
-        movePlayer("UP");
+        playerControl(cmd.nextCommand()); //delay player movement until next command
 
         hitBullet();
-        spawnEnemies();
         bulletBoundary();
         gameOver();
 
+    }
+
+    public void updateEnemiesLocation() {
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemies en = enemies.get(i);
+            System.out.println(en.getXcoord());
+            System.out.println(en.getYcoord());
+
+        }
     }
 
     //MODIFY: this
@@ -95,29 +110,41 @@ public class Map {
 
     }
 
-    //REQUIRE: Proper text command
-    //MODIFY: this
-    //EFFECT: Control player based on text input
-    public void movePlayer(String cmd) {
-        if (cmd == "UP") {
+    public void cmdReceived(String cmd) {
+        if (cmd.equals("5")) {
+            fire();
+        } else {
+            playerControl(cmd);
+        }
+    }
+
+    public void playerControl(String cmd) {
+
+        if (cmd.equals("1")) {
             player.playerChangeDirection("UP");
             player.moveUp();
             System.out.println("up");
-        } else if (cmd == "DOWN") {
-            player.playerChangeDirection("DOWN");
-            player.moveDown();
+
+        } else if (cmd.equals("2")) {
             System.out.println("down");
 
-        } else if (cmd == "RIGHT") {
+        } else if (cmd.equals("3")) {
             player.playerChangeDirection("RIGHT");
             player.moveRight();
             System.out.println("right");
 
-        } else if (cmd == "LEFT") {
+        } else if (cmd.equals("4")) {
             player.playerChangeDirection("LEFT");
             player.moveLeft();
             System.out.println("left");
+
+        } else {
+            player.idle();
         }
+    }
+
+    public void playerMove() {
+
 
     }
 

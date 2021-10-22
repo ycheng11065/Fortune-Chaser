@@ -95,30 +95,30 @@ public class TestMap {
         assertEquals(map.getBullets().get(3).getDir(), bd.getDir());
     }
 
-    @Test
-    public void movePlayerTest() {
-        map.movePlayer("UP");
-        assertEquals(map.getPlayer().getDirection(), "UP");
-        assertEquals(map.getPlayer().getYcoord(), 20 + map.getPlayer().RATEY);
-        assertEquals(map.getPlayer().getXcoord(), 20);
-
-        map.movePlayer("DOWN");
-        assertEquals(map.getPlayer().getDirection(), "DOWN");
-        assertEquals(map.getPlayer().getYcoord(), 22 - map.getPlayer().RATEY);
-        assertEquals(map.getPlayer().getXcoord(), 20);
-
-        map.movePlayer("RIGHT");
-        assertEquals(map.getPlayer().getDirection(), "RIGHT");
-        assertEquals(map.getPlayer().getYcoord(), 20);
-        assertEquals(map.getPlayer().getXcoord(), 20 - map.getPlayer().RATEX);
-
-        map.movePlayer("LEFT");
-        assertEquals(map.getPlayer().getDirection(), "LEFT");
-        assertEquals(map.getPlayer().getYcoord(), 20);
-        assertEquals(map.getPlayer().getXcoord(), 18 + map.getPlayer().RATEX);
-
-
-    }
+//    @Test
+//    public void movePlayerTest() {
+//        map.movePlayer("UP");
+//        assertEquals(map.getPlayer().getDirection(), "UP");
+//        assertEquals(map.getPlayer().getYcoord(), 20 + map.getPlayer().RATEY);
+//        assertEquals(map.getPlayer().getXcoord(), 20);
+//
+//        map.movePlayer("DOWN");
+//        assertEquals(map.getPlayer().getDirection(), "DOWN");
+//        assertEquals(map.getPlayer().getYcoord(), 22 - map.getPlayer().RATEY);
+//        assertEquals(map.getPlayer().getXcoord(), 20);
+//
+//        map.movePlayer("RIGHT");
+//        assertEquals(map.getPlayer().getDirection(), "RIGHT");
+//        assertEquals(map.getPlayer().getYcoord(), 20);
+//        assertEquals(map.getPlayer().getXcoord(), 20 - map.getPlayer().RATEX);
+//
+//        map.movePlayer("LEFT");
+//        assertEquals(map.getPlayer().getDirection(), "LEFT");
+//        assertEquals(map.getPlayer().getYcoord(), 20);
+//        assertEquals(map.getPlayer().getXcoord(), 18 + map.getPlayer().RATEX);
+//
+//
+//    }
 
     @Test
     public void moveBulletTest() {

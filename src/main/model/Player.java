@@ -19,12 +19,19 @@ public class Player {
     private int ycoord;
     private String direction;
 
+
     //EFFECT: Creates the player at the desired x y coordinate with health and direction
     public Player(int x, int y, int h, String d) {
         this.xcoord = x;
         this.ycoord = y;
         this.health = h;
         this.direction = d;
+    }
+
+    public void idle() {
+        xcoord += 0;
+        ycoord += 0;
+
     }
 
     //MODIFY: this
