@@ -22,10 +22,12 @@ public class Zombie {
         addCounter();
     }
 
+    //EFFECTS: Forward player command to next method
     public void play(String n) {
         game.cmdReceived(n);
     }
 
+    //EFFECTS: Return map
     public Map getMap() {
         return game;
     }

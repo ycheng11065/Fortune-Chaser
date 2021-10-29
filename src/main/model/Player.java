@@ -129,4 +129,16 @@ public class Player {
         direction = d;
     }
 
+    //MODIFY: this
+    //EFFECTS: Move player to new x coord
+    public void playerChangeXcoord(int n) {
+        xcoord = n;
+    }
+
+    //MODIFY: this
+    //EFFECTS: Move player to new y coord
+    public void playerChangeYcoord(int n) {
+        ycoord = n;
+    }
+
 }

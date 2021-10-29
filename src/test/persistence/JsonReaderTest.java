@@ -39,7 +39,7 @@ class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderGeneralWorkRoom.json");
         try {
             GameFile gf = reader.read();
-            assertEquals("MY gamefile", gf.getName());
+            assertEquals("My gamefile", gf.getName());
             List<String> cord = gf.getCoordinate();
             assertEquals(2, cord.size());
             checkGameFile("(2,2)", gf.getCoordinate().get(0));

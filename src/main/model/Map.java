@@ -1,13 +1,10 @@
 package model;
 
 import ui.Commands;
-import ui.GameFileApp;
-import ui.Zombie;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 // SOURCE: SpaceInvaderBase
 
@@ -65,6 +62,7 @@ public class Map {
 
     }
 
+    // EFFECTS: Return location of enemies
     public void updateEnemiesLocation() {
         for (int i = 0; i < enemies.size(); i++) {
             Enemies en = enemies.get(i);
@@ -111,6 +109,7 @@ public class Map {
 
     }
 
+    // EFFECTS: Seperate move and fire
     public void cmdReceived(String cmd) {
         if (cmd.equals("g")) {
             fire();
@@ -119,6 +118,7 @@ public class Map {
         }
     }
 
+    // EFFECTS: Move player based on inserted commands
     public void playerControl(String cmd) {
 
         if (cmd.equals("w")) {
@@ -140,9 +140,6 @@ public class Map {
             player.playerChangeDirection("LEFT");
             player.moveLeft();
             System.out.println("left");
-
-        } else {
-            player.idle();
         }
     }
 
@@ -273,8 +270,11 @@ public class Map {
         return en;
     }
 
+    //MODIFY: this
+    //EFFECTS: Spawn player to new x and y coord
     public void spawnChange(int xccord, int ycoord) {
-
+        player.playerChangeXcoord(xccord);
+        player.playerChangeYcoord(ycoord);
 
     }
 }

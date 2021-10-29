@@ -7,6 +7,8 @@ import persistence.Writable;
 import java.util.ArrayList;
 import java.util.List;
 
+//Source: JsonSerializationDemo
+
 // Represents a game file having a collection of entity and its coordinate
 public class GameFile implements Writable {
     private List<String> coordinate;
@@ -18,10 +20,12 @@ public class GameFile implements Writable {
         coordinate = new ArrayList<>();
     }
 
+    // EFFECTS: return name
     public String getName() {
         return name;
     }
 
+    // EFFECTS: return the list of coordinate strings
     public List<String> getCoordinate() {
         return coordinate;
     }
@@ -41,6 +45,7 @@ public class GameFile implements Writable {
         return json;
     }
 
+    // EFFECTS: Return coordinate as jsonArray
     private JSONArray coordinateToJson() {
         JSONArray jsonArray = new JSONArray();
 

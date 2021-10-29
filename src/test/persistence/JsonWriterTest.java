@@ -43,7 +43,7 @@ class JsonWriterTest extends JsonTest {
     @Test
     void testWriterGeneralWorkroom() {
         try {
-            GameFile gf = new GameFile("My work room");
+            GameFile gf = new GameFile("My gamefile");
             gf.addCoordinate(3, 5);
             gf.addCoordinate(100, 200);
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");

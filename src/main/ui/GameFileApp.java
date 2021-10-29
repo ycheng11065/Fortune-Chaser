@@ -93,6 +93,7 @@ public class GameFileApp {
         }
     }
 
+    //EFFECTS: Process player command
     private void command(String command) {
         game.play(command);
         addCoordinate(game.getMap().getPlayer().getXcoord(), game.getMap().getPlayer().getYcoord());
