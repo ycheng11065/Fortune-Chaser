@@ -10,7 +10,7 @@ public class Commands {
         Scanner sc = new Scanner(System.in);
         String cmd = sc.nextLine();
         if (cmd.equals(null)) {
-            return "0";
+            return "";
 
         } else {
             return cmd;

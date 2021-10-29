@@ -1,6 +1,7 @@
 package model;
 
 import ui.Commands;
+import ui.GameFileApp;
 import ui.Zombie;
 
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class Map {
     }
 
     public void cmdReceived(String cmd) {
-        if (cmd.equals("5")) {
+        if (cmd.equals("g")) {
             fire();
         } else {
             playerControl(cmd);
@@ -120,20 +121,22 @@ public class Map {
 
     public void playerControl(String cmd) {
 
-        if (cmd.equals("1")) {
+        if (cmd.equals("w")) {
             player.playerChangeDirection("UP");
             player.moveUp();
             System.out.println("up");
 
-        } else if (cmd.equals("2")) {
+        } else if (cmd.equals("s")) {
+            player.playerChangeDirection("DOWN");
+            player.moveDown();
             System.out.println("down");
 
-        } else if (cmd.equals("3")) {
+        } else if (cmd.equals("d")) {
             player.playerChangeDirection("RIGHT");
             player.moveRight();
             System.out.println("right");
 
-        } else if (cmd.equals("4")) {
+        } else if (cmd.equals("a")) {
             player.playerChangeDirection("LEFT");
             player.moveLeft();
             System.out.println("left");
@@ -141,11 +144,6 @@ public class Map {
         } else {
             player.idle();
         }
-    }
-
-    public void playerMove() {
-
-
     }
 
     //MODIFY: this
@@ -273,5 +271,10 @@ public class Map {
             }
         }
         return en;
+    }
+
+    public void spawnChange(int xccord, int ycoord) {
+
+
     }
 }

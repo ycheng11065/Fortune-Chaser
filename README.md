@@ -21,3 +21,5 @@ What it will contain
 - As a user I want to be able to shoot
 - As a user I want to have enemies to shoot at
 - As a user I want to be able to eliminate those enemies
+- As a user I want to be able to save my character and enemy coordinate
+- as a user I want to be able to close program and reopen it where I have left off

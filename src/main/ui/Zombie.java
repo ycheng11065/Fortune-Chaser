@@ -20,16 +20,14 @@ public class Zombie {
     public Zombie() {
         game =  new Map();
         addCounter();
-        play();
     }
 
-    public void play() {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Move Player: 1 - Up, 2 - Down, 3 - Right, 4 - Left, 5 - Shoot ");
-        String n = sc.nextLine();
-        //String strCommand = Integer.toString(n);
+    public void play(String n) {
         game.cmdReceived(n);
+    }
+
+    public Map getMap() {
+        return game;
     }
 
 
@@ -43,18 +41,6 @@ public class Zombie {
         });
 
         t1.start();
-
-    }
-
-
-
-
-
-    //Start game
-    public static void main(String[] args) {
-        new Zombie();
-
-
 
     }
 }
