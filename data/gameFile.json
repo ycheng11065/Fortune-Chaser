@@ -1,4 +1,9 @@
 {
-    "coordinate": [],
+    "coordinate": [
+        "(20,22)",
+        "(20,24)",
+        "(20,26)",
+        "(22,26)"
+    ],
     "name": "My gamefile"
 }

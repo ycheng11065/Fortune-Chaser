@@ -1,37 +1,47 @@
 package ui;
 
-import model.Map;
+import model.Frame;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
 import javax.swing.Timer;
-import java.util.*;
-import java.util.Scanner;
+
 
 //SOURCE: SpaceInvaderBase
 
-public class Zombie {
+public class Zombie extends JFrame {
 
     private static final int Interval = 10;
 
-    private Map game;
+    private Frame game;
+    private GamePanel gp;
+    private ScorePanel sp;
 
     //EFFECT: Create new game
     public Zombie() {
-        game =  new Map();
+        super("Zombie");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setUndecorated(false);
+        game =  new Frame();
+        gp = new GamePanel(game);
+        sp = new ScorePanel(game);
+        add(gp);
+        add(sp, BorderLayout.NORTH);
+        addKeyListener(new KeyHandler());
+        pack();
+        centerOnScreen();
+        setVisible(true);
+
+
         addCounter();
     }
-
-    //EFFECTS: Forward player command to next method
-    public void play(String n) {
-        game.cmdReceived(n);
-    }
-
-    //EFFECTS: Return map
-    public Map getMap() {
-        return game;
-    }
-
 
     //EFFECT: Timer that updates game every Interval millisecond
     public void addCounter() {
@@ -39,10 +49,43 @@ public class Zombie {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 game.update();
+                sp.update();
+                gp.repaint();
             }
         });
 
         t1.start();
-
     }
+
+    private void centerOnScreen() {
+        Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
+    }
+
+//    //EFFECTS: Forward player command to next method
+//    public void play(String n) {
+//        game.playerControl(n);
+//    }
+
+
+    //EFFECTS: Return map
+    public Frame getMap() {
+        return game;
+    }
+
+
+    private class KeyHandler extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            game.keyPressed(e.getKeyCode());
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            game.keyReleased(e.getKeyCode());
+        }
+    }
+
+
+
 }

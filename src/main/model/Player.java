@@ -9,6 +9,7 @@ public class Player {
     public static final int HEALTH = 200;
     public static final int SIZEX = 20; // Appearance will be changed
     public static final int SIZEY = 20; // into animated image?
+    public static final int Y_POS = Frame.HEIGHT - 40; // need to change?
     public static final Color COLOUR = new Color(153, 153, 255);
     public static final int RATEY = 2;
     public static final int RATEX = 2;
@@ -17,6 +18,7 @@ public class Player {
     private int health;
     private int xcoord;
     private int ycoord;
+    private int food;
     private String direction;
 
 
@@ -28,51 +30,25 @@ public class Player {
         this.direction = d;
     }
 
-    public void idle() {
-        xcoord += 0;
-        ycoord += 0;
-
-    }
-
-    //MODIFY: this
-    //EFFECT: Player move up
-    public void moveUp() {
-        ycoord = ycoord + RATEY;
-
-        yboundary();
-    }
-
-    //MODIFY: this
-    //EFFECT: Player move down
-    public void moveDown() {
-        ycoord = ycoord - RATEY;
-        yboundary();
-    }
-
-    //MODIFY: this
-    //EFFECT: Player move right
-    public void moveRight() {
-        xcoord = xcoord - RATEX;
+    public void moveX(int vel) {
+        xcoord += vel;
         xboundary();
     }
 
-    //MODIFY: this
-    //EFFECT: Player move left
-    public void moveLeft() {
-        xcoord = xcoord + RATEX;
-
-        xboundary();
+    public void moveY(int vel) {
+        ycoord += vel;
+        yboundary();
     }
 
-    //EFFECT: Return true if hit by enemies
-    public boolean isHit(Enemies e) {
-        Rectangle playerRectangle = new Rectangle(getXcoord() - SIZEX / 2,
-                getYcoord() - SIZEY / 2, SIZEX, SIZEY);
-        Rectangle enemyRectangle = new Rectangle(e.getXcoord() - SIZEX / 2,
-                e.getYcoord() - SIZEY / 2, e.SIZEX, e.SIZEY);
-        return playerRectangle.intersects(enemyRectangle);
-
-    }
+//    //EFFECT: Return true if hit by enemies
+//    public boolean isHit(Enemies e) {
+//        Rectangle playerRectangle = new Rectangle(getXcoord() - SIZEX / 2,
+//                getYcoord() - SIZEY / 2, SIZEX, SIZEY);
+//        Rectangle enemyRectangle = new Rectangle(e.getXcoord() - SIZEX / 2,
+//                e.getYcoord() - SIZEY / 2, e.SIZEX, e.SIZEY);
+//        return playerRectangle.intersects(enemyRectangle);
+//
+//    }
 
 
     //MODIFY: this
@@ -80,8 +56,8 @@ public class Player {
     private void xboundary() {
         if (xcoord < 0) {
             xcoord = 0;
-        } else if (xcoord > Map.WIDTH) {
-            xcoord = Map.WIDTH;
+        } else if (xcoord > Frame.WIDTH) {
+            xcoord = Frame.WIDTH;
         }
 
     }
@@ -91,8 +67,8 @@ public class Player {
     public void yboundary() {
         if (ycoord < 0) {
             ycoord = 0;
-        } else if (ycoord > Map.HEIGHT) {
-            ycoord = Map.HEIGHT;
+        } else if (ycoord > Frame.HEIGHT) {
+            ycoord = Frame.HEIGHT;
         }
 
     }
@@ -139,6 +115,10 @@ public class Player {
     //EFFECTS: Move player to new y coord
     public void playerChangeYcoord(int n) {
         ycoord = n;
+    }
+
+    public void playerCollect() {
+        this.food++;
     }
 
 }

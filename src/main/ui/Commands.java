@@ -1,7 +1,5 @@
 package ui;
 
-import model.Map;
-
 import java.util.Scanner;
 
 public class Commands {
