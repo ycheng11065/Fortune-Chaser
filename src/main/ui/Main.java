@@ -1,10 +1,8 @@
 package ui;
 
-import java.io.FileNotFoundException;
-
 public class Main {
     public static void main(String[] args) {
-        new Zombie();
+        new FortuneChaser();
 //        try {
 //            new GameFileApp();
 //        } catch (FileNotFoundException e) {

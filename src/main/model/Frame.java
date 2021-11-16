@@ -1,81 +1,93 @@
 package model;
 
-import ui.Commands;
+import ui.FortunePanel;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 
 // SOURCE: SpaceInvaderBase
 
 public class Frame {
 
-    public static final int WIDTH = 1000;
-    public static final int HEIGHT = 800;
-    public static final int MAX_BULLETS = 10;
-    public static final int MAX_ENEMIES = 10;
-    public static final int BULLET_DMG = 10;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 500;
+    public static final int HUNGER_DMG = 1;
     public static final Random RAND = new Random();
-    public static final int SPAWN_RATE = 5; // Millisecond
-//    public static final Enemies TOP_ENEMY = new Enemies(WIDTH / 2, 1, 30, "DOWN");
-//    public static final Enemies BOT_ENEMY = new Enemies(WIDTH / 2, HEIGHT + 1, 30, "TOP");
-//    public static final Enemies RIG_ENEMY = new Enemies(1, HEIGHT / 2, 30, "RIGHT");
-//    public static final Enemies LEF_ENEMY = new Enemies(WIDTH - 1, HEIGHT / 2, 30, "LEFT");
 
-//    private ArrayList<Bullets> bullets;
-//    private ArrayList<Enemies> enemies;
     private Player player;
+    private Food food;
+    private Treasure treasure;
+    private Pocket pocket;
+
+    private String msg;
     private boolean isGameOver;
     private int velX = 0;
     private int velY = 0;
-    private int enemieScore;
-    private int counter = 0;
-    private int numItemPicked;
+    private int foodScore;
+    private int treasureScore;
+//    private String[] fortune =  {"A beautiful, smart, and loving person will be coming into your life.",
+//            "A dubious friend may be an enemy in camouflage.",
+//            "A faithful friend is a strong defense.",
+//            "A feather in the hand is better than a bird in the air.",
+//            "A fresh start will put you on your way.",
+//            "A friend asks only for your time not your money.",
+//            "A friend is a present you give yourself."};
+    private ArrayList<String> fortune;
 
     //EFFECT: Create empty list of bullets and enemies, spawns the player
     public Frame() {
-//        bullets = new ArrayList<Bullets>();
-//        enemies = new ArrayList<Enemies>();
         start();
     }
 
     //MODIFY: this
     //EFFECT: Start game, clear screen, spawn player
     public void start() {
-//        enemies.clear();
-//        bullets.clear();
-        player = new Player(WIDTH / 2, HEIGHT / 2, 60, "UP");
+        player = new Player(WIDTH / 2, HEIGHT / 2, Player.HEALTH, "UP");
+        pocket = new Pocket();
+        fortune = new ArrayList<String>();
+        food = spawnFood();
+        treasure = spawnTreasure();
+        addMsg();
         isGameOver = false;
-        enemieScore = 0;
+        foodScore = 0;
+        treasureScore = 0;
     }
 
     //MODIFY: this
     //EFFECT: Update movement, Bullets and enemies
     public void update() {
-//        Commands cmd = new Commands();
-//        moveBullet();
-//        spawnEnemies();
-//        updateEnemiesLocation();
-//        moveEnemies();
-//        playerControl(cmd.nextCommand()); //delay player movement until next command
-//
-//        hitBullet();
-//        bulletBoundary();
-        player.moveX(velX);
-        player.moveY(velY);
-        System.out.println(player.getXcoord());
-        System.out.println(player.getYcoord());
-        gameOver();
+        if (!isGameOver) {
+            player.moveX(velX);
+            player.moveY(velY);
+            System.out.println(player.getXcoord());
+            System.out.println(player.getYcoord());
+            if (canEat()) {
+                player.eat();
+                foodScore++;
+                food = spawnFood();
+            }
+            if (canPickUp()) {
+                setMsg();
+                pocket.addTreasure(treasure);
+                treasureScore++;
+                treasure = spawnTreasure();
+            }
+            if (player.getHealth() > 0) {
+                playerHunger();
+            }
+            gameOver();
+        }
 
     }
 
     public void keyPressed(int keyCode) {
         if (keyCode == KeyEvent.VK_W) {
-            velY = player.RATEY;
-        } else if (keyCode == KeyEvent.VK_S) {
             velY = -1 * player.RATEY;
+        } else if (keyCode == KeyEvent.VK_S) {
+            velY = player.RATEY;
         } else if (keyCode == KeyEvent.VK_A) {
             velX = -1 * player.RATEX;
         } else if (keyCode == KeyEvent.VK_D) {
@@ -84,6 +96,9 @@ public class Frame {
             start();
         } else if (keyCode == KeyEvent.VK_X) {
             System.exit(0);
+        } else if (keyCode == KeyEvent.VK_I && isGameOver) {
+            FortunePanel fp = new FortunePanel(this);
+            fp.update();
         }
     }
 
@@ -99,30 +114,9 @@ public class Frame {
         }
     }
 
-//    // EFFECTS: Move player based on inserted commands
-//    public void playerControl(String cmd) {
-//
-//        if (cmd.equals("w")) {
-//            player.playerChangeDirection("UP");
-//            player.moveUp();
-//            System.out.println("up");
-//
-//        } else if (cmd.equals("s")) {
-//            player.playerChangeDirection("DOWN");
-//            player.moveDown();
-//            System.out.println("down");
-//
-//        } else if (cmd.equals("d")) {
-//            player.playerChangeDirection("RIGHT");
-//            player.moveRight();
-//            System.out.println("right");
-//
-//        } else if (cmd.equals("a")) {
-//            player.playerChangeDirection("LEFT");
-//            player.moveLeft();
-//            System.out.println("left");
-//        }
-//    }
+    public void playerHunger() {
+        player.healthDmg(HUNGER_DMG);
+    }
 
     //MODIFY: this
     //EFFECT: Change value of isGameOver to true if player is dead, clear bullet and enemy
@@ -132,12 +126,10 @@ public class Frame {
             isGameOver = true;
 
         }
+    }
 
-        if (isGameOver) {
-//            enemies.clear();
-//            bullets.clear();
-        }
-
+    public Food getFood() {
+        return food;
     }
 
     //EFFECT: Return player
@@ -145,21 +137,90 @@ public class Frame {
         return player;
     }
 
+    public Treasure getTreasure() {
+        return treasure;
+    }
+
     //EFFECT: Return true if game is over, false if game is not over
     public boolean getisGameOver() {
         return isGameOver;
     }
 
-    //MODIFY: this
-    //EFFECTS: Spawn player to new x and y coord
-    public void spawnChange(int xccord, int ycoord) {
-        player.playerChangeXcoord(xccord);
-        player.playerChangeYcoord(ycoord);
-
+    public int getFoodScore() {
+        return foodScore;
     }
 
-    public int getNumItemPicked() {
-        return numItemPicked;
+    public int getTreasureScore() {
+        return treasureScore;
+    }
+
+
+    public Food spawnFood() {
+        Random rand = new Random();
+        int upperboundx = WIDTH - 10;
+        int upperboundy = HEIGHT - 10;
+        int lowerbound = 10;
+
+        int xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
+        int yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
+
+        while (xrandom == player.getXcoord() && yrandom == player.getYcoord()) {
+            xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
+            yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
+        }
+
+        return new Food(xrandom, yrandom);
+    }
+
+    public Treasure spawnTreasure() {
+        Random rand = new Random();
+        int upperboundx = WIDTH - 10;
+        int upperboundy = HEIGHT - 10;
+        int lowerbound = 10;
+
+        int xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
+        int yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
+
+        while ((xrandom == player.getXcoord() && yrandom == player.getYcoord())
+                || (xrandom == food.getX() && yrandom == food.getY())) {
+            xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
+            yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
+        }
+
+        return new Treasure(xrandom, yrandom);
+    }
+
+    public Boolean canEat() {
+        return food.hit(player);
+    }
+
+    public Boolean canPickUp() {
+        return treasure.hit(player);
+    }
+
+    public void addMsg() {
+        fortune.add("A beautiful, smart, and loving person will be coming into your life.");
+        fortune.add("A dubious friend may be an enemy in camouflage.");
+        fortune.add("A faithful friend is a strong defense.");
+        fortune.add("A feather in the hand is better than a bird in the air.");
+        fortune.add("A fresh start will put you on your way.");
+        fortune.add("A friend asks only for your time not your money.");
+        fortune.add("A friend is a present you give yourself.");
+    }
+
+    public void setMsg() {
+        Random r = new Random();
+        if (fortune.size() == 0) {
+            treasure.addMsg("Out of fortune");
+        } else {
+            msg = fortune.get(r.nextInt(fortune.size()));
+            treasure.addMsg(msg);
+            fortune.remove(msg);
+        }
+    }
+
+    public Pocket getPocket() {
+        return pocket;
     }
 
 }

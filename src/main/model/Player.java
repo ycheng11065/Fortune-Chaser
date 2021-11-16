@@ -11,8 +11,8 @@ public class Player {
     public static final int SIZEY = 20; // into animated image?
     public static final int Y_POS = Frame.HEIGHT - 40; // need to change?
     public static final Color COLOUR = new Color(153, 153, 255);
-    public static final int RATEY = 2;
-    public static final int RATEX = 2;
+    public static final int RATEY = 5;
+    public static final int RATEX = 5;
 
 
     private int health;
@@ -40,24 +40,13 @@ public class Player {
         yboundary();
     }
 
-//    //EFFECT: Return true if hit by enemies
-//    public boolean isHit(Enemies e) {
-//        Rectangle playerRectangle = new Rectangle(getXcoord() - SIZEX / 2,
-//                getYcoord() - SIZEY / 2, SIZEX, SIZEY);
-//        Rectangle enemyRectangle = new Rectangle(e.getXcoord() - SIZEX / 2,
-//                e.getYcoord() - SIZEY / 2, e.SIZEX, e.SIZEY);
-//        return playerRectangle.intersects(enemyRectangle);
-//
-//    }
-
-
     //MODIFY: this
     //EFFECT: Constrain player from leaving game boundary on x axis
     private void xboundary() {
-        if (xcoord < 0) {
-            xcoord = 0;
-        } else if (xcoord > Frame.WIDTH) {
-            xcoord = Frame.WIDTH;
+        if (xcoord < 10) {
+            xcoord = 10;
+        } else if (xcoord > Frame.WIDTH - 10) {
+            xcoord = Frame.WIDTH - 10;
         }
 
     }
@@ -65,10 +54,10 @@ public class Player {
     //MODIFY: this
     //EFFECT: Constrain player from leaving game boundary on y axis
     public void yboundary() {
-        if (ycoord < 0) {
-            ycoord = 0;
-        } else if (ycoord > Frame.HEIGHT) {
-            ycoord = Frame.HEIGHT;
+        if (ycoord < 10) {
+            ycoord = 10;
+        } else if (ycoord > Frame.HEIGHT - 10) {
+            ycoord = Frame.HEIGHT - 10;
         }
 
     }
@@ -89,36 +78,14 @@ public class Player {
         return ycoord;
     }
 
-    //EFFECT: Return direction
-    public String getDirection() {
-        return direction;
-    }
-
     //EFFECT: Return player health
     public int getHealth() {
         return health;
     }
 
-    //MODIFY: this
-    //EFFECT: Change Direction of player
-    public void playerChangeDirection(String d) {
-        direction = d;
-    }
 
-    //MODIFY: this
-    //EFFECTS: Move player to new x coord
-    public void playerChangeXcoord(int n) {
-        xcoord = n;
-    }
-
-    //MODIFY: this
-    //EFFECTS: Move player to new y coord
-    public void playerChangeYcoord(int n) {
-        ycoord = n;
-    }
-
-    public void playerCollect() {
-        this.food++;
+    public void eat() {
+        health = HEALTH;
     }
 
 }

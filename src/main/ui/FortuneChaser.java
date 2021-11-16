@@ -1,32 +1,31 @@
 package ui;
 
 import model.Frame;
+import model.Treasure;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JFrame;
-import javax.swing.Timer;
+import javax.swing.*;
 
 
 //SOURCE: SpaceInvaderBase
 
-public class Zombie extends JFrame {
+public class FortuneChaser extends JFrame {
 
     private static final int Interval = 10;
 
     private Frame game;
     private GamePanel gp;
     private ScorePanel sp;
+    private FortunePanel fp;
 
     //EFFECT: Create new game
-    public Zombie() {
-        super("Zombie");
+    public FortuneChaser() {
+        super("FortuneChaser");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
         game =  new Frame();
@@ -38,7 +37,6 @@ public class Zombie extends JFrame {
         pack();
         centerOnScreen();
         setVisible(true);
-
 
         addCounter();
     }
@@ -66,7 +64,6 @@ public class Zombie extends JFrame {
 //    public void play(String n) {
 //        game.playerControl(n);
 //    }
-
 
     //EFFECTS: Return map
     public Frame getMap() {
