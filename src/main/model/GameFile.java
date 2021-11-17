@@ -5,19 +5,20 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //Source: JsonSerializationDemo
 
 // Represents a game file having a collection of entity and its coordinate
 public class GameFile implements Writable {
-    private List<String> coordinate;
+    private List<Pocket> pocket;
     private String name;
 
     // EFFECTS: constructs gamefile with a name and empty list of entities
     public GameFile(String name) {
         this.name = name;
-        coordinate = new ArrayList<>();
+        pocket = new ArrayList<>();
     }
 
     // EFFECTS: return name
@@ -25,32 +26,32 @@ public class GameFile implements Writable {
         return name;
     }
 
-    // EFFECTS: return the list of coordinate strings
-    public List<String> getCoordinate() {
-        return coordinate;
+    public void addTreasure(Pocket treasure) {
+        pocket.add(treasure);
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds player coordinate to this game file
-    public void addCoordinate(int xcoord, int ycoord) {
-        String coord = "(" + Integer.toString(xcoord) + "," + Integer.toString(ycoord) + ")";
-        coordinate.add(coord);
+    public List<Pocket> getPocket() {
+        return Collections.unmodifiableList(pocket);
+    }
+
+    public int numTreasure() {
+        return pocket.size();
     }
 
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("coordinate", coordinateToJson());
+        json.put("Name", name);
+        json.put("Fortune", treasureToJson());
         return json;
     }
 
     // EFFECTS: Return coordinate as jsonArray
-    private JSONArray coordinateToJson() {
+    private JSONArray treasureToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (String c : coordinate) {
-            jsonArray.put(c);
+        for (Pocket next: pocket) {
+            jsonArray.put(next.toJson());
         }
 
         return jsonArray;

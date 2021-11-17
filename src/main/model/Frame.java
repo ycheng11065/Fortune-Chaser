@@ -28,13 +28,6 @@ public class Frame {
     private int velY = 0;
     private int foodScore;
     private int treasureScore;
-//    private String[] fortune =  {"A beautiful, smart, and loving person will be coming into your life.",
-//            "A dubious friend may be an enemy in camouflage.",
-//            "A faithful friend is a strong defense.",
-//            "A feather in the hand is better than a bird in the air.",
-//            "A fresh start will put you on your way.",
-//            "A friend asks only for your time not your money.",
-//            "A friend is a present you give yourself."};
     private ArrayList<String> fortune;
 
     //EFFECT: Create empty list of bullets and enemies, spawns the player
@@ -94,11 +87,11 @@ public class Frame {
             velX = player.RATEX;
         } else if (keyCode == KeyEvent.VK_R && isGameOver) {
             start();
-        } else if (keyCode == KeyEvent.VK_X) {
-            System.exit(0);
         } else if (keyCode == KeyEvent.VK_I && isGameOver) {
             FortunePanel fp = new FortunePanel(this);
             fp.update();
+        } else if (keyCode == KeyEvent.VK_X) {
+            System.exit(0);
         }
     }
 

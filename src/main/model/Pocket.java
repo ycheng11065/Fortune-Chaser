@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Pocket {
@@ -15,6 +17,12 @@ public class Pocket {
 
     public ArrayList<Treasure> getPocket() {
         return pocket;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("fortune", pocket);
+        return json;
     }
 
 }

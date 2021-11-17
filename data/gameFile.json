@@ -1,9 +1,45 @@
 {
-    "coordinate": [
-        "(20,22)",
-        "(20,24)",
-        "(20,26)",
-        "(22,26)"
-    ],
-    "name": "My gamefile"
+    "Fortune": [{"fortune": [
+        {
+            "msg": "A fresh start will put you on your way.",
+            "x": 241,
+            "y": 66
+        },
+        {
+            "msg": "A feather in the hand is better than a bird in the air.",
+            "x": 411,
+            "y": 338
+        },
+        {
+            "msg": "A friend asks only for your time not your money.",
+            "x": 556,
+            "y": 391
+        },
+        {
+            "msg": "A friend is a present you give yourself.",
+            "x": 178,
+            "y": 206
+        },
+        {
+            "msg": "A dubious friend may be an enemy in camouflage.",
+            "x": 659,
+            "y": 61
+        },
+        {
+            "msg": "A faithful friend is a strong defense.",
+            "x": 401,
+            "y": 367
+        },
+        {
+            "msg": "A beautiful, smart, and loving person will be coming into your life.",
+            "x": 539,
+            "y": 396
+        },
+        {
+            "msg": "Out of fortune",
+            "x": 137,
+            "y": 477
+        }
+    ]}],
+    "Name": "My gamefile"
 }

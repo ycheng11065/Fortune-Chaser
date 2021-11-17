@@ -36,5 +36,6 @@ public class FortunePanel extends JFrame {
                 add(a);
             }
         }
+        pack();
     }
 }
