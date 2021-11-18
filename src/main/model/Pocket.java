@@ -19,10 +19,4 @@ public class Pocket {
         return pocket;
     }
 
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("fortune", pocket);
-        return json;
-    }
-
 }

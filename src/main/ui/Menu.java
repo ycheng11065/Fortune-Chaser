@@ -2,6 +2,7 @@ package ui;
 
 import model.Frame;
 import model.GameFile;
+import model.Treasure;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -23,7 +24,6 @@ public class Menu extends JFrame implements ActionListener {
     public Menu() {
 
         gameFile = new GameFile("My gamefile");
-//        jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
 
 
@@ -66,7 +66,6 @@ public class Menu extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == button2) {
             loadSaveFile();
-            System.out.println("load");
         }
     }
 
@@ -76,7 +75,7 @@ public class Menu extends JFrame implements ActionListener {
         try {
             gameFile = jsonReader.read();
             System.out.println("Loaded " + gameFile.getName() + " from " + JSON_STORE);
-//            FortunePanel panel = new FortunePanel();
+            LoadPanel panel = new LoadPanel(gameFile.getTreasures());
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

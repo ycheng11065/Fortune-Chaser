@@ -5,24 +5,27 @@ import model.Treasure;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
-public class FortunePanel extends JFrame {
+public class LoadPanel extends JFrame {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
 
     private static final String FORTUNE_TXT = "Your fortune: ";
-    private Frame game;
+    private List<Treasure> treasures;
 
-    public FortunePanel(Frame frame) {
-        game = frame;
+    public LoadPanel(List<Treasure> treasures) {
+        this.treasures = treasures;
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
         setTitle("Fortune Panel");
 
         GridLayout g1 = new GridLayout();
-        g1.setRows(game.getPocket().getPocket().size() + 1);
+        g1.setRows(treasures.size() + 1);
         setLayout(g1);
+        update();
         centerOnScreen();
     }
 
@@ -30,12 +33,10 @@ public class FortunePanel extends JFrame {
         JLabel fortuneLbl = new JLabel(FORTUNE_TXT);
         fortuneLbl.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
         add(fortuneLbl);
-        if (game.getisGameOver()) {
-            for (Treasure next: game.getPocket().getPocket()) {
-                JLabel a = new JLabel(next.getMsg());
-                a.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
-                add(a);
-            }
+        for (Treasure next: treasures) {
+            JLabel a = new JLabel(next.getMsg());
+            a.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
+            add(a);
         }
         pack();
     }
@@ -45,3 +46,4 @@ public class FortunePanel extends JFrame {
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 }
+

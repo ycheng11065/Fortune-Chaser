@@ -79,11 +79,11 @@ public class FortuneChaser extends JFrame {
         public void keyPressed(KeyEvent e) {
             game.keyPressed(e.getKeyCode());
             if (e.getKeyCode() == KeyEvent.VK_O && game.getisGameOver() == true) {
+                gameFile.clearJson();
                 addPocket();
                 saveGameFile();
             }
         }
-
 
         @Override
         public void keyReleased(KeyEvent e) {
@@ -92,7 +92,9 @@ public class FortuneChaser extends JFrame {
     }
 
     private void addPocket() {
-        gameFile.addTreasure(game.getPocket());
+        for (Treasure next: game.getPocket().getPocket()) {
+            gameFile.addTreasure(next);
+        }
     }
 
     // EFFECTS: saves the workroom to file

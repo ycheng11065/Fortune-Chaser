@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.awt.*;
 import java.util.List;
 import java.util.Random;
@@ -44,7 +46,9 @@ public class Treasure {
         return msg;
     }
 
-
-
-
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Fortune", msg);
+        return json;
+    }
 }

@@ -1,5 +1,6 @@
 package model;
 
+import com.sun.xml.internal.ws.util.StreamUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -12,13 +13,13 @@ import java.util.List;
 
 // Represents a game file having a collection of entity and its coordinate
 public class GameFile implements Writable {
-    private List<Pocket> pocket;
+    private List<Treasure> treasures;
     private String name;
 
     // EFFECTS: constructs gamefile with a name and empty list of entities
     public GameFile(String name) {
         this.name = name;
-        pocket = new ArrayList<>();
+        treasures = new ArrayList<>();
     }
 
     // EFFECTS: return name
@@ -26,16 +27,12 @@ public class GameFile implements Writable {
         return name;
     }
 
-    public void addTreasure(Pocket treasure) {
-        pocket.add(treasure);
+    public void addTreasure(Treasure treasure) {
+        treasures.add(treasure);
     }
 
-    public List<Pocket> getPocket() {
-        return Collections.unmodifiableList(pocket);
-    }
-
-    public int numTreasure() {
-        return pocket.size();
+    public List<Treasure> getTreasures() {
+        return treasures;
     }
 
     @Override
@@ -50,11 +47,16 @@ public class GameFile implements Writable {
     private JSONArray treasureToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Pocket next: pocket) {
+        for (Treasure next: treasures) {
             jsonArray.put(next.toJson());
         }
 
         return jsonArray;
+    }
+
+    public void clearJson() {
+        List<Treasure> clear = new ArrayList<>();
+        treasures = clear;
     }
 }
 

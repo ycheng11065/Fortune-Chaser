@@ -199,6 +199,49 @@ public class Frame {
         fortune.add("A fresh start will put you on your way.");
         fortune.add("A friend asks only for your time not your money.");
         fortune.add("A friend is a present you give yourself.");
+        fortune.add("A gambler not only will lose what he has, but also will lose what he doesn’t have.");
+        fortune.add("A golden egg of opportunity falls into your lap this month.");
+        fortune.add("A good friendship is often more important than a passionate romance.");
+        fortune.add("A good time to finish up old tasks.");
+        fortune.add("A hunch is creativity trying to tell you something.");
+        addMsg2();
+    }
+
+    public void addMsg2() {
+        fortune.add("A lifetime friend shall soon be made.");
+        fortune.add("A lifetime of happiness lies ahead of you.");
+        fortune.add("A light heart carries you through all the hard times.");
+        fortune.add("Savor your freedom – it is precious.");
+        fortune.add("Say hello to others. You will have a happier day.");
+        fortune.add("Self-knowledge is a life long process.");
+        fortune.add("Share your joys and sorrows with your family.");
+        fortune.add("Sift through your past to get a better idea of the present.");
+        fortune.add("Sloth makes all things difficult; industry all easy.");
+        fortune.add("Small confidences mark the onset of a friendship.");
+        fortune.add("Success is going from failure to failure without loss of enthusiasm.");
+        fortune.add("Swimming is easy. Stay floating is hard.");
+        addMsg3();
+    }
+
+    public void addMsg3() {
+        fortune.add("The first man gets the oyster, the second man gets the shell.");
+        fortune.add("The greatest achievement in life is to stand up again after falling.");
+        fortune.add("The harder you work, the luckier you get.");
+        fortune.add("The night life is for you.");
+        fortune.add("The one that recognizes the illusion does not act as if it is real.");
+        fortune.add("The only people who never fail are those who never try.");
+        fortune.add("The person who will not stand for something will fall for anything.");
+        fortune.add("The philosophy of one century is the common sense of the next.");
+        fortune.add("The secret to good friends is no secret to you.");
+        fortune.add("The small courtesies sweeten life, the greater ennoble it.");
+        fortune.add("The sure way to predict the future is to invent it.");
+        fortune.add("The truly generous share, even with the undeserving.");
+        fortune.add("The value lies not within any particular thing, but in the desire placed on that thing.");
+        fortune.add("There is a time for caution, but not for fear.");
+        fortune.add("Those who care will make the effort.");
+        fortune.add("Time and patience are called for many surprises await you!.");
+        fortune.add("Welcome change.");
+        fortune.add("What’s that in your eye? Oh…it’s a sparkle.");
     }
 
     public void setMsg() {
