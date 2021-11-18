@@ -18,16 +18,13 @@ public class Player {
     private int health;
     private int xcoord;
     private int ycoord;
-    private int food;
-    private String direction;
 
 
     //EFFECT: Creates the player at the desired x y coordinate with health and direction
-    public Player(int x, int y, int h, String d) {
+    public Player(int x, int y, int h) {
         this.xcoord = x;
         this.ycoord = y;
         this.health = h;
-        this.direction = d;
     }
 
     public void moveX(int vel) {

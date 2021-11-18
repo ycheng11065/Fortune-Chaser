@@ -38,7 +38,7 @@ public class Frame {
     //MODIFY: this
     //EFFECT: Start game, clear screen, spawn player
     public void start() {
-        player = new Player(WIDTH / 2, HEIGHT / 2, Player.HEALTH, "UP");
+        player = new Player(WIDTH / 2, HEIGHT / 2, Player.HEALTH);
         pocket = new Pocket();
         fortune = new ArrayList<String>();
         food = spawnFood();
