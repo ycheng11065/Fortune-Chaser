@@ -85,4 +85,9 @@ public class Player {
         health = HEALTH;
     }
 
+    public void movePlayer(int x, int y) {
+        xcoord = x;
+        ycoord = y;
+    }
+
 }

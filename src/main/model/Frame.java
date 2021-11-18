@@ -121,33 +121,6 @@ public class Frame {
         }
     }
 
-    public Food getFood() {
-        return food;
-    }
-
-    //EFFECT: Return player
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Treasure getTreasure() {
-        return treasure;
-    }
-
-    //EFFECT: Return true if game is over, false if game is not over
-    public boolean getisGameOver() {
-        return isGameOver;
-    }
-
-    public int getFoodScore() {
-        return foodScore;
-    }
-
-    public int getTreasureScore() {
-        return treasureScore;
-    }
-
-
     public Food spawnFood() {
         Random rand = new Random();
         int upperboundx = WIDTH - 10;
@@ -244,6 +217,14 @@ public class Frame {
         fortune.add("What’s that in your eye? Oh…it’s a sparkle.");
     }
 
+    public void setVelX(int x) {
+        velX = x;
+    }
+
+    public void setVelY(int y) {
+        velY = y;
+    }
+
     public void setMsg() {
         Random r = new Random();
         if (fortune.size() == 0) {
@@ -255,8 +236,53 @@ public class Frame {
         }
     }
 
+    public void setFood(int x, int y) {
+        food = new Food(x, y);
+    }
+
+    public void setTreasure(int x, int y) {
+        treasure = new Treasure(x, y);
+    }
+
+    //EFFECT: Return player
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Treasure getTreasure() {
+        return treasure;
+    }
+
+    //EFFECT: Return true if game is over, false if game is not over
+    public boolean getisGameOver() {
+        return isGameOver;
+    }
+
+    public int getFoodScore() {
+        return foodScore;
+    }
+
+    public int getTreasureScore() {
+        return treasureScore;
+    }
+
     public Pocket getPocket() {
         return pocket;
     }
 
+    public int getVelY() {
+        return velY;
+    }
+
+    public ArrayList<String> getFortune() {
+        return fortune;
+    }
+
+    public Food getFood() {
+        return food;
+    }
+
+    public int getVelX() {
+        return velX;
+    }
 }
