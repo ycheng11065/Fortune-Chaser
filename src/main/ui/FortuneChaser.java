@@ -51,6 +51,9 @@ public class FortuneChaser extends JFrame {
         jsonStore = store;
         jsonWriter = new JsonWriter(jsonStore);
 
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        setIconImage(icon);
+
         addCounter();
     }
 

@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Menu extends JFrame implements ActionListener {
     JButton button1;
@@ -22,6 +24,8 @@ public class Menu extends JFrame implements ActionListener {
     private JsonReader jsonReader;
 
     public Menu() {
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        setIconImage(icon);
 
         gameFile = new GameFile("My gamefile");
         jsonReader = new JsonReader(JSON_STORE);

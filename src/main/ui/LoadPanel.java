@@ -15,6 +15,10 @@ public class LoadPanel extends JFrame {
     private List<Treasure> treasures;
 
     public LoadPanel(List<Treasure> treasures) {
+
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        setIconImage(icon);
+        
         this.treasures = treasures;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

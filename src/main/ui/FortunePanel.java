@@ -14,6 +14,8 @@ public class FortunePanel extends JFrame {
     private Frame game;
 
     public FortunePanel(Frame frame) {
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        setIconImage(icon);
         game = frame;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
