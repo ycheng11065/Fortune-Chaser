@@ -3,7 +3,6 @@ package ui;
 import model.Frame;
 import model.GameFile;
 import model.Treasure;
-import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.awt.*;
@@ -12,12 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.swing.*;
 
 
-//SOURCE: SpaceInvaderBase
+/**
+ * Create main window displaying Fortune Chaser
+ * Reference: JsonSerialization demo, SpaceInvader
+ */
 
 public class FortuneChaser extends JFrame {
 
@@ -31,7 +31,7 @@ public class FortuneChaser extends JFrame {
     private GameFile gameFile;
     private JsonWriter jsonWriter;
 
-    //EFFECT: Create new game
+    //EFFECT: Set main window where game takes place
     public FortuneChaser(GameFile gameFile, String store) throws FileNotFoundException {
         super("FortuneChaser");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,6 +71,7 @@ public class FortuneChaser extends JFrame {
         t1.start();
     }
 
+    //EFFECTS: Centers frame
     private void centerOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
@@ -94,13 +95,14 @@ public class FortuneChaser extends JFrame {
         }
     }
 
+    // EFFECTS: Add treasure to GameFile
     private void addPocket() {
         for (Treasure next: game.getPocket().getPocket()) {
             gameFile.addTreasure(next);
         }
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the GameFile to file
     private void saveGameFile() {
         try {
             jsonWriter.open();

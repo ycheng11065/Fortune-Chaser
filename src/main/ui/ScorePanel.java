@@ -5,6 +5,11 @@ import model.Frame;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Create a panel showing scores
+ * Reference: SpaceInvader
+ */
+
 public class ScorePanel extends JPanel {
     private static final String ITEM_TXT = "Item picked up";
     private static final String HEALTH_TXT = "Health Remaining";
@@ -16,7 +21,7 @@ public class ScorePanel extends JPanel {
     private JLabel healthLbl;
     private JLabel treasureLbl;
 
-
+    //EFFECTS: sets the background colour and draws initial labels where it is constantly updated by game
     public ScorePanel(Frame g) {
         game = g;
         setBackground(new Color(180, 180, 180));
@@ -33,6 +38,8 @@ public class ScorePanel extends JPanel {
         add(healthLbl);
     }
 
+    //MODIFIES: this
+    //EFFECTS: update number of food and treasure collected as well as show player health remaining
     public void update() {
         treasureLbl.setText(TREASURE_TXT + " " + game.getTreasureScore());
         itemLbl.setText(ITEM_TXT + " " + game.getFoodScore());

@@ -5,6 +5,10 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Create a loading screen lasting five seconds before loading menu panel
+ */
+
 public class Main {
 
     public static void main(String[] args) throws MalformedURLException {

@@ -7,6 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Panel displaying fortunes similarly to Fortune Panel
+ * Reference: JsonSerialization demo, SpaceInvader
+ */
+
 public class LoadPanel extends JFrame {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
@@ -14,11 +19,12 @@ public class LoadPanel extends JFrame {
     private static final String FORTUNE_TXT = "Your fortune: ";
     private List<Treasure> treasures;
 
+    //EFFECTS: Create a frame showing all fortune message from file
     public LoadPanel(List<Treasure> treasures) {
 
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
         setIconImage(icon);
-        
+
         this.treasures = treasures;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,6 +39,7 @@ public class LoadPanel extends JFrame {
         centerOnScreen();
     }
 
+    //EFFECTS: Create a label as header then turn all treasure fortune message into label
     public void update() {
         JLabel fortuneLbl = new JLabel(FORTUNE_TXT);
         fortuneLbl.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HEIGHT));
@@ -45,6 +52,7 @@ public class LoadPanel extends JFrame {
         pack();
     }
 
+    //EFFECTS: Centers frame
     private void centerOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);

@@ -8,11 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import model.Pocket;
 import model.Treasure;
 import org.json.*;
 
-// Represents a reader that reads gameFile from JSON data stored in file
+/**
+ * Represents a reader that reads gameFile from JSON data stored in file
+ * Reference: JsonSerialization demo
+ */
+
 public class JsonReader {
     private String source;
 
@@ -48,6 +51,8 @@ public class JsonReader {
         return gf;
     }
 
+    // MODIFIES: gf
+    // EFFECTS: parse fortune from JSON object and adds them to GameFile
     private void addPockets(GameFile gf, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("Fortune");
         for (Object json : jsonArray) {
@@ -56,6 +61,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: gf
+    // EFFECTS: Parse message from JSON object and adds it to GameFile
     private void addTreasure(GameFile gf, JSONObject jsonObject) {
         String name = jsonObject.getString("Fortune");
         Treasure treasure = new Treasure(0, 0);

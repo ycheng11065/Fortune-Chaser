@@ -2,9 +2,7 @@ package ui;
 
 import model.Frame;
 import model.GameFile;
-import model.Treasure;
 import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+/**
+ * Menu panel consisting of two buttons, one for starting game, the other for load gui
+ * Reference: JsonSerialization demo, SpaceInvader
+ */
 
 public class Menu extends JFrame implements ActionListener {
     JButton button1;
@@ -23,6 +24,7 @@ public class Menu extends JFrame implements ActionListener {
     private GameFile gameFile;
     private JsonReader jsonReader;
 
+    //EFFECT: Creates a panel containing two buttons
     public Menu() {
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
         setIconImage(icon);
@@ -53,11 +55,13 @@ public class Menu extends JFrame implements ActionListener {
 
     }
 
+    //EFFECT: Centers the panel
     private void centerOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
 
+    //EFFECT: Connect the two gui button to action events
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button1) {
@@ -79,7 +83,7 @@ public class Menu extends JFrame implements ActionListener {
         try {
             gameFile = jsonReader.read();
             System.out.println("Loaded " + gameFile.getName() + " from " + JSON_STORE);
-            LoadPanel panel = new LoadPanel(gameFile.getTreasures());
+            new LoadPanel(gameFile.getTreasures());
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }

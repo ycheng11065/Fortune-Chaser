@@ -1,14 +1,4 @@
 {
-    "Fortune": [
-        {"Fortune": "The sure way to predict the future is to invent it."},
-        {"Fortune": "Sloth makes all things difficult; industry all easy."},
-        {"Fortune": "The philosophy of one century is the common sense of the next."},
-        {"Fortune": "There is a time for caution, but not for fear."},
-        {"Fortune": "A feather in the hand is better than a bird in the air."},
-        {"Fortune": "Self-knowledge is a life long process."},
-        {"Fortune": "The truly generous share, even with the undeserving."},
-        {"Fortune": "Swimming is easy. Stay floating is hard."},
-        {"Fortune": "Say hello to others. You will have a happier day."}
-    ],
+    "Fortune": [{"Fortune": "The philosophy of one century is the common sense of the next."}],
     "Name": "My gamefile"
 }
