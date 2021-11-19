@@ -24,6 +24,20 @@ class JsonWriterTest extends JsonTest {
     }
 
     @Test
+    void testClearJson() {
+            GameFile gf = new GameFile("My gamefile");
+            Treasure t1 = new Treasure(20, 20);
+            t1.addMsg("Hello");
+            Treasure t2 = new Treasure(25, 25);
+            t2.addMsg("Hi");
+            gf.addTreasure(t1);
+            gf.addTreasure(t2);
+            gf.clearJson();
+            assertEquals(gf.getTreasures().size(), 0);
+
+    }
+
+    @Test
     void testWriterEmptyGamefile() {
         try {
             GameFile gf = new GameFile("My gamefile");
