@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-// SOURCE: SpaceInvaderBase
+/**
+ * Represents Fortune Rush game
+ * Reference: Space Invader
+ */
 
 public class Frame {
 
@@ -30,13 +33,13 @@ public class Frame {
     private int treasureScore;
     private ArrayList<String> fortune;
 
-    //EFFECT: Create empty list of bullets and enemies, spawns the player
+    //EFFECT: start game
     public Frame() {
         start();
     }
 
     //MODIFY: this
-    //EFFECT: Start game, clear screen, spawn player
+    //EFFECT: Start game, spawn player, spawn treasure, spawn food, reset score, create pocket, create msg list, set msg
     public void start() {
         player = new Player(WIDTH / 2, HEIGHT / 2, Player.HEALTH);
         pocket = new Pocket();
@@ -50,7 +53,7 @@ public class Frame {
     }
 
     //MODIFY: this
-    //EFFECT: Update movement, Bullets and enemies
+    //EFFECTS: Update movement, check to spawn food, check to spawn treasure, check if game over, reduce player health,
     public void update() {
         if (!isGameOver) {
             player.moveX(velX);
@@ -76,6 +79,8 @@ public class Frame {
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: Connect key press to specific function
     public void keyPressed(int keyCode) {
         if (keyCode == KeyEvent.VK_W) {
             velY = -1 * player.RATEY;
@@ -95,6 +100,8 @@ public class Frame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: Releasing key stop player movement
     public void keyReleased(int keyCode) {
         if (keyCode == KeyEvent.VK_W) {
             velY = 0;
@@ -107,13 +114,14 @@ public class Frame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: Reduce player health
     public void playerHunger() {
         player.healthDmg(HUNGER_DMG);
     }
 
-    //MODIFY: this
-    //EFFECT: Change value of isGameOver to true if player is dead, clear bullet and enemy
-    // list if isGameOver is true
+    //MODIFIES: this
+    //EFFECTS: Change value of isGameOver to true if player is dead
     public void gameOver() {
         if (player.getHealth() <= 0) {
             isGameOver = true;
@@ -121,6 +129,7 @@ public class Frame {
         }
     }
 
+    //EFFECTS: Spawn food to random location, if location is same than player then choose new location
     public Food spawnFood() {
         Random rand = new Random();
         int upperboundx = WIDTH - 10;
@@ -138,6 +147,7 @@ public class Frame {
         return new Food(xrandom, yrandom);
     }
 
+    //EFFECTS: Spawn treasure to random location, if location is same than player then choose new location
     public Treasure spawnTreasure() {
         Random rand = new Random();
         int upperboundx = WIDTH - 10;
@@ -156,14 +166,18 @@ public class Frame {
         return new Treasure(xrandom, yrandom);
     }
 
+    //EFFECTS: return true if player touch food
     public Boolean canEat() {
         return food.hit(player);
     }
 
+    //EFFECTS: return true if player touch treasure
     public Boolean canPickUp() {
         return treasure.hit(player);
     }
 
+    //MODIFIES: this
+    //EFFECTS: Add default msg to fortune
     public void addMsg() {
         fortune.add("A beautiful, smart, and loving person will be coming into your life.");
         fortune.add("A dubious friend may be an enemy in camouflage.");
@@ -180,6 +194,8 @@ public class Frame {
         addMsg2();
     }
 
+    //MODIFIES: this
+    //EFFECTS: Add default msg to fortune
     public void addMsg2() {
         fortune.add("A lifetime friend shall soon be made.");
         fortune.add("A lifetime of happiness lies ahead of you.");
@@ -196,6 +212,8 @@ public class Frame {
         addMsg3();
     }
 
+    //MODIFIES: this
+    //EFFECTS: Add default msg to fortune
     public void addMsg3() {
         fortune.add("The first man gets the oyster, the second man gets the shell.");
         fortune.add("The greatest achievement in life is to stand up again after falling.");
@@ -217,14 +235,20 @@ public class Frame {
         fortune.add("What’s that in your eye? Oh…it’s a sparkle.");
     }
 
+    //MODIFIES: this
+    //EFFECTS: set velx with new value
     public void setVelX(int x) {
         velX = x;
     }
 
+    //MODIFIES: this
+    //EFFECTS: set vely with new value
     public void setVelY(int y) {
         velY = y;
     }
 
+    //MODIFIES: this
+    //EFFECTS: put random msg within treasure, if fortune is out of msg then return out of fortune
     public void setMsg() {
         Random r = new Random();
         if (fortune.size() == 0) {
@@ -236,52 +260,64 @@ public class Frame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: create new food at x y
     public void setFood(int x, int y) {
         food = new Food(x, y);
     }
 
+    //MODIFIES: this
+    //EFFECTS: create new treasure at x y
     public void setTreasure(int x, int y) {
         treasure = new Treasure(x, y);
     }
 
-    //EFFECT: Return player
+    //EFFECTS: Return player
     public Player getPlayer() {
         return player;
     }
 
+    //EFFECTS: Return treasure
     public Treasure getTreasure() {
         return treasure;
     }
 
-    //EFFECT: Return true if game is over, false if game is not over
+    //EFFECTS: Return true if game is over, false if game is not over
     public boolean getisGameOver() {
         return isGameOver;
     }
 
+    //EFFECTS: return food score
     public int getFoodScore() {
         return foodScore;
     }
 
+    //EFFECTS: return treasure score
     public int getTreasureScore() {
         return treasureScore;
     }
 
+    //EFFECTS: return pocket
     public Pocket getPocket() {
         return pocket;
     }
 
+    //EFFECTS: return velY
     public int getVelY() {
         return velY;
     }
 
+    //EFFECTS: return fortune
     public ArrayList<String> getFortune() {
         return fortune;
     }
 
+    //EFFECTS: return food
     public Food getFood() {
         return food;
     }
 
+    //EFFECTS: return velY
     public int getVelX() {
         return velX;
     }

@@ -2,6 +2,10 @@ package model;
 
 import java.awt.*;
 
+/**
+ * Represents a food at position x y
+ */
+
 public class Food {
     public static final int SIZEX = 20;
     public static final int SIZEY = 20;
@@ -10,12 +14,13 @@ public class Food {
     private int xcoord;
     private int ycoord;
 
+    //EFFECTS: Create a food in the desired coordinate
     public Food(int x, int y) {
         xcoord = x;
         ycoord = y;
     }
 
-   //EFFECT: Return true if bullet hit enemy
+   //EFFECTS: Return true if player hit food
     public boolean hit(Player p) {
         Rectangle foodRectangle = new Rectangle(getX() - SIZEX / 2, getY() - SIZEY / 2,
                 SIZEX, SIZEY);
@@ -25,10 +30,12 @@ public class Food {
 
     }
 
+    //EFFECTS: Return x coordinate
     public int getX() {
         return xcoord;
     }
 
+    //EFFECTS: Return y coordinate
     public int getY() {
         return ycoord;
     }

@@ -1,25 +1,21 @@
-# My Game
+# Fortune Rush
 
 ## About my game
 
-My project will be a simple **ZOMBIE** type game. The main idea is simply you controlling one entity which
-has to fend off against enemies until you get overwhelmed and get a score or time survived at the end. The game will
-contain a simple GUI allowing the player to start and close the game. There will be the main entity which the player
-will be able to control as well as cpu controlled entity that the player will need to play against. I might also decide
-to add environment obstacles. The game itself will take place in the same window the menu will be in. People that are
-interested in my game will play it. I am interested in this project because I've always wanted to make game, so I saw
-this as a good opportunity to do so.
+My project is a simple **Survive as long as possible** type game. The main idea is simply controlling a player that has 
+to keep eating to survive as his health keep decreasing over time. As the player tries to survive, he is also able to 
+pick up fortune cookies that will give him words of wisdom at the end of the game.
 
 What it will contain
 - Gui (menu and game will take place in same window)
-- Main entity
-- Opposing entities
-- Environment obstacle maybe
+- Player
+- Food
+- Fortune cookies
 
 
 - As a user I want to be able to move my character 
-- As a user I want to be able to shoot
-- As a user I want to have enemies to shoot at
-- As a user I want to be able to eliminate those enemies
-- As a user I want to be able to save my character and enemy coordinate
-- as a user I want to be able to close program and reopen it where I have left off
+- As a user I want to be able to eat food
+- As a user I want to be able to pick up fortune cookies
+- As a user I want to be able to view my fortune messages
+- As a user I want to be able to save my fortune messages
+- as a user I want to be able to close program and be able to see my saved fortune messages

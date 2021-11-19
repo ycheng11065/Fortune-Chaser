@@ -3,8 +3,10 @@ package model;
 import org.json.JSONObject;
 
 import java.awt.*;
-import java.util.List;
-import java.util.Random;
+
+/**
+ * Represents a treasure at pos x y
+ */
 
 public class Treasure {
     public static final int SIZEX = 20;
@@ -15,12 +17,13 @@ public class Treasure {
     private int ycoord;
     private String msg;
 
+    // EFFECTS: Creates a treasure at x y
     public Treasure(int x, int y) {
         xcoord = x;
         ycoord = y;
     }
 
-    //EFFECT: Return true if bullet hit enemy
+    //EFFECT: Return true if Player touches treasure
     public boolean hit(Player p) {
         Rectangle treasureRectangle = new Rectangle(getX() - SIZEX / 2, getY() - SIZEY / 2,
                 SIZEX, SIZEY);
@@ -30,18 +33,23 @@ public class Treasure {
 
     }
 
+    // EFFECTS: Return x
     public int getX() {
         return xcoord;
     }
 
+    // EFFECTS: Return y
     public int getY() {
         return ycoord;
     }
 
+    // MODIFIES: this
+    // EFFECTS: Set msg
     public void addMsg(String msg) {
         this.msg = msg;
     }
 
+    // EFFECTS: Return msg
     public String getMsg() {
         return msg;
     }
