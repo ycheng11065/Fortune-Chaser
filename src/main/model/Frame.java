@@ -2,10 +2,8 @@ package model;
 
 import ui.FortunePanel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -90,14 +88,8 @@ public class Frame {
             velX = -1 * player.RATEX;
         } else if (keyCode == KeyEvent.VK_D) {
             velX = player.RATEX;
-        } else if (keyCode == KeyEvent.VK_R && isGameOver) {
-            start();
-        } else if (keyCode == KeyEvent.VK_I && isGameOver) {
-            FortunePanel fp = new FortunePanel(this);
-            fp.update();
-        } else if (keyCode == KeyEvent.VK_X) {
-            System.exit(0);
         }
+
     }
 
     //MODIFIES: this
@@ -139,11 +131,6 @@ public class Frame {
         int xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
         int yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
 
-        while (xrandom == player.getXcoord() && yrandom == player.getYcoord()) {
-            xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
-            yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
-        }
-
         return new Food(xrandom, yrandom);
     }
 
@@ -156,12 +143,6 @@ public class Frame {
 
         int xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
         int yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
-
-        while ((xrandom == player.getXcoord() && yrandom == player.getYcoord())
-                || (xrandom == food.getX() && yrandom == food.getY())) {
-            xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
-            yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
-        }
 
         return new Treasure(xrandom, yrandom);
     }

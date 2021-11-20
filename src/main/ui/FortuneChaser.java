@@ -82,10 +82,18 @@ public class FortuneChaser extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
             game.keyPressed(e.getKeyCode());
+
             if (e.getKeyCode() == KeyEvent.VK_O && game.getisGameOver() == true) {
                 gameFile.clearJson();
                 addPocket();
                 saveGameFile();
+            } else if (e.getKeyCode() == KeyEvent.VK_R && game.getisGameOver() == true) {
+                game.start();
+            } else if (e.getKeyCode() == KeyEvent.VK_I && game.getisGameOver() == true) {
+                FortunePanel fp = new FortunePanel(game);
+                fp.update();
+            } else if (e.getKeyCode() == KeyEvent.VK_X) {
+                System.exit(0);
             }
         }
 

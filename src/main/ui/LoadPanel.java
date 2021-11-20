@@ -5,6 +5,10 @@ import model.Treasure;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +16,7 @@ import java.util.List;
  * Reference: JsonSerialization demo, SpaceInvader
  */
 
-public class LoadPanel extends JFrame {
+public class LoadPanel extends JFrame implements ActionListener {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
 
@@ -27,11 +31,15 @@ public class LoadPanel extends JFrame {
 
         this.treasures = treasures;
 
+        JButton button1 = new JButton("Delete Fortune");
+        button1.addActionListener(this);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
         setTitle("Fortune Panel");
 
+        add(button1);
         GridLayout g1 = new GridLayout();
         g1.setRows(treasures.size() + 1);
         setLayout(g1);
@@ -50,6 +58,14 @@ public class LoadPanel extends JFrame {
             add(a);
         }
         pack();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        List<Treasure> zero =  new ArrayList<>();
+        new LoadPanel(zero);
+        this.dispose();
+
     }
 
     //EFFECTS: Centers frame

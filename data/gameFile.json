@@ -1,4 +1,8 @@
 {
-    "Fortune": [{"Fortune": "The philosophy of one century is the common sense of the next."}],
+    "Fortune": [
+        {"Fortune": "Those who care will make the effort."},
+        {"Fortune": "The greatest achievement in life is to stand up again after falling."},
+        {"Fortune": "The only people who never fail are those who never try."}
+    ],
     "Name": "My gamefile"
 }

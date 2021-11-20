@@ -85,9 +85,6 @@ public class TestFrame {
         assertEquals(frame.getVelX(), -1 * frame.getPlayer().RATEY);
         frame.keyPressed(KeyEvent.VK_D);
         assertEquals(frame.getVelX(), frame.getPlayer().RATEY);
-//        frame.keyPressed(KeyEvent.VK_R);
-//        assertEquals(frame.getPlayer().getXcoord(), frame.WIDTH / 2);
-//        frame.keyPressed(KeyEvent.VK_I);
 
     }
 
@@ -129,6 +126,8 @@ public class TestFrame {
         assertTrue(frame.getFood().getY() < frame.HEIGHT - 10 && frame.getFood().getY() > 10);
         assertFalse(frame.getFood().getX() == frame.getPlayer().getXcoord());
         assertFalse(frame.getFood().getY() == frame.getPlayer().getYcoord());
+
+
 
     }
 
@@ -183,6 +182,14 @@ public class TestFrame {
         assertTrue(frame.getTreasure() != null);
         assertEquals(frame.getTreasure().getX(), 20);
         assertEquals(frame.getTreasure().getY(), 20);
+    }
+
+    @Test
+    public void setTreasureTest() {
+        frame.setTreasure(50, 50);
+        assertEquals(frame.getTreasure().getX(), 50);
+        assertEquals(frame.getTreasure().getY(), 50);
+
     }
 
 
