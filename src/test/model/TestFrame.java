@@ -28,6 +28,21 @@ public class TestFrame {
     }
 
     @Test
+    public void gameOverUpdateTest() {
+        frame.start();
+        frame.getPlayer().healthDmg(frame.getPlayer().HEALTH);
+        frame.update();
+        assertTrue(frame.getisGameOver());
+    }
+
+    @Test
+    public void hungerUpdateTest() {
+        frame.start();
+        frame.update();
+        assertEquals(frame.getPlayer().getHealth(), frame.getPlayer().HEALTH - 1);
+    }
+
+    @Test
     public void updateMovementTest() {
         frame.start();
         frame.setVelX(1);
