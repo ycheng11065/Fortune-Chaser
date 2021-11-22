@@ -16,7 +16,7 @@ import java.util.List;
  * Reference: JsonSerialization demo, SpaceInvader
  */
 
-public class LoadPanel extends JFrame implements ActionListener {
+public class LoadPanel extends JFrame {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
 
@@ -31,15 +31,15 @@ public class LoadPanel extends JFrame implements ActionListener {
 
         this.treasures = treasures;
 
-        JButton button1 = new JButton("Delete Fortune");
-        button1.addActionListener(this);
+//        JButton button1 = new JButton("Delete Fortune");
+//        button1.addActionListener(this);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
         setTitle("Fortune Panel");
 
-        add(button1);
+//        add(button1);
         GridLayout g1 = new GridLayout();
         g1.setRows(treasures.size() + 1);
         setLayout(g1);
@@ -60,13 +60,13 @@ public class LoadPanel extends JFrame implements ActionListener {
         pack();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        List<Treasure> zero =  new ArrayList<>();
-        new LoadPanel(zero);
-        this.dispose();
-
-    }
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        List<Treasure> zero =  new ArrayList<>();
+//        new LoadPanel(zero);
+//        this.dispose();
+//
+//    }
 
     //EFFECTS: Centers frame
     private void centerOnScreen() {

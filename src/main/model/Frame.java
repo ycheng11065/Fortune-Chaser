@@ -30,15 +30,18 @@ public class Frame {
     private int foodScore;
     private int treasureScore;
     private ArrayList<String> fortune;
+    private int gameCount;
 
     //EFFECT: start game
     public Frame() {
+        gameCount = 0;
         start();
     }
 
     //MODIFY: this
     //EFFECT: Start game, spawn player, spawn treasure, spawn food, reset score, create pocket, create msg list, set msg
     public void start() {
+        EventLog.getInstance().logEvent(new Event("New game begun"));
         player = new Player(WIDTH / 2, HEIGHT / 2, Player.HEALTH);
         pocket = new Pocket();
         fortune = new ArrayList<String>();
@@ -48,6 +51,7 @@ public class Frame {
         isGameOver = false;
         foodScore = 0;
         treasureScore = 0;
+        gameCount++;
     }
 
     //MODIFY: this
@@ -60,12 +64,14 @@ public class Frame {
             System.out.println(player.getYcoord());
             if (canEat()) {
                 player.eat();
+                EventLog.getInstance().logEvent(new Event("Food eaten"));
                 foodScore++;
                 food = spawnFood();
             }
             if (canPickUp()) {
                 setMsg();
                 pocket.addTreasure(treasure);
+                EventLog.getInstance().logEvent(new Event("Fortune cookie collected"));
                 treasureScore++;
                 treasure = spawnTreasure();
             }
@@ -301,5 +307,10 @@ public class Frame {
     //EFFECTS: return velY
     public int getVelX() {
         return velX;
+    }
+
+    //EFFECTS: return game count
+    public int getGameCount() {
+        return gameCount;
     }
 }

@@ -6,10 +6,7 @@ import model.Treasure;
 import persistence.JsonWriter;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.FileNotFoundException;
 import javax.swing.*;
 
@@ -30,11 +27,12 @@ public class FortuneChaser extends JFrame {
     private String jsonStore;
     private GameFile gameFile;
     private JsonWriter jsonWriter;
+    private Boolean isClosed;
 
     //EFFECT: Set main window where game takes place
     public FortuneChaser(GameFile gameFile, String store) throws FileNotFoundException {
         super("FortuneChaser");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setUndecorated(false);
         game =  new Frame();
         gp = new GamePanel(game);
@@ -45,6 +43,7 @@ public class FortuneChaser extends JFrame {
         pack();
         centerOnScreen();
         setVisible(true);
+        closed();
 
         //JSON
         this.gameFile = gameFile;
@@ -94,6 +93,9 @@ public class FortuneChaser extends JFrame {
                 fp.update();
             } else if (e.getKeyCode() == KeyEvent.VK_X) {
                 System.exit(0);
+            } else if (e.getKeyCode() == KeyEvent.VK_L) {
+                LogPanel lg = new LogPanel(game);
+                lg.update();
             }
         }
 
@@ -120,6 +122,16 @@ public class FortuneChaser extends JFrame {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + jsonStore);
         }
+    }
+
+    public void closed() {
+        addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                new Menu();
+            }
+        });
     }
 
 

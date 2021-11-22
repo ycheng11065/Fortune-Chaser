@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Frame;
 import model.GameFile;
 import persistence.JsonReader;
@@ -8,7 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -19,10 +24,12 @@ import java.io.IOException;
 public class Menu extends JFrame implements ActionListener {
     JButton button1;
     JButton button2;
+    JButton button3;
 
     private static final String JSON_STORE = "./data/gameFile.json";
     private GameFile gameFile;
     private JsonReader jsonReader;
+    private FileWriter fw;
 
     //EFFECT: Creates a panel containing two buttons
     public Menu() {
@@ -39,6 +46,9 @@ public class Menu extends JFrame implements ActionListener {
         button2 = new JButton("Load Fortune");
         button2.addActionListener(this);
 
+        button3 = new JButton("Print Log");
+        button3.addActionListener(this);
+
         JPanel panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
         panel.setLayout(new GridLayout(0, 1));
@@ -47,6 +57,7 @@ public class Menu extends JFrame implements ActionListener {
 
         add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        closed();
         setTitle("Fortune Chaser");
         setPreferredSize(new Dimension(model.Frame.WIDTH, Frame.HEIGHT));
         pack();
@@ -74,6 +85,9 @@ public class Menu extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == button2) {
             loadSaveFile();
+
+        } else if (e.getSource() == button3) {
+            System.out.println(EventLog.getInstance());
         }
     }
 
@@ -87,6 +101,18 @@ public class Menu extends JFrame implements ActionListener {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    public void closed() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.out.println("Closing");
+                for (Event next: EventLog.getInstance()) {
+                    System.out.println(next);
+                }
+            }
+        });
     }
 
 }
