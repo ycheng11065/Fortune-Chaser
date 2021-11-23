@@ -13,7 +13,7 @@ public class Player {
     public static final int SIZEX = 20;
     public static final int SIZEY = 20;
     public static final Color COLOUR = new Color(153, 153, 255);
-    public static final int RATEY = 5;
+    public static final int RATEY = 5; //def : 5
     public static final int RATEX = 5;
 
     private int health;

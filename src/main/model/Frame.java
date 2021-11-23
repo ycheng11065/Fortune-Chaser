@@ -22,6 +22,7 @@ public class Frame {
     private Food food;
     private Treasure treasure;
     private Pocket pocket;
+    private Poison poison;
 
     private String msg;
     private boolean isGameOver;
@@ -46,6 +47,7 @@ public class Frame {
         pocket = new Pocket();
         fortune = new ArrayList<String>();
         food = spawnFood();
+        poison = spawnPoison();
         treasure = spawnTreasure();
         addMsg();
         isGameOver = false;
@@ -62,18 +64,10 @@ public class Frame {
             player.moveY(velY);
             System.out.println(player.getXcoord());
             System.out.println(player.getYcoord());
-            if (canEat()) {
-                player.eat();
-                EventLog.getInstance().logEvent(new Event("Food eaten"));
-                foodScore++;
-                food = spawnFood();
-            }
-            if (canPickUp()) {
-                setMsg();
-                pocket.addTreasure(treasure);
-                EventLog.getInstance().logEvent(new Event("Fortune cookie collected"));
-                treasureScore++;
-                treasure = spawnTreasure();
+            updateFood();
+            updateTreasure();
+            if (canPoison()) {
+                poison = spawnPoison();
             }
             if (player.getHealth() > 0) {
                 playerHunger();
@@ -81,6 +75,25 @@ public class Frame {
             gameOver();
         }
 
+    }
+
+    public void updateFood() {
+        if (canEat()) {
+            player.eat();
+            EventLog.getInstance().logEvent(new Event("Food eaten"));
+            foodScore++;
+            food = spawnFood();
+        }
+    }
+
+    public void updateTreasure() {
+        if (canPickUp()) {
+            setMsg();
+            pocket.addTreasure(treasure);
+            EventLog.getInstance().logEvent(new Event("Fortune cookie collected"));
+            treasureScore++;
+            treasure = spawnTreasure();
+        }
     }
 
     //MODIFIES: this
@@ -115,7 +128,7 @@ public class Frame {
     //MODIFIES: this
     //EFFECTS: Reduce player health
     public void playerHunger() {
-        player.healthDmg(HUNGER_DMG);
+        player.healthDmg(HUNGER_DMG); //def : HUNGER_DMG
     }
 
     //MODIFIES: this
@@ -153,9 +166,27 @@ public class Frame {
         return new Treasure(xrandom, yrandom);
     }
 
+    //EFFECTS: Spawn Poison to random location, if location is same than player then choose new location
+    public Poison spawnPoison() {
+        Random rand = new Random();
+        int upperboundx = WIDTH - 10;
+        int upperboundy = HEIGHT - 10;
+        int lowerbound = 10;
+
+        int xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
+        int yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
+
+
+        return new Poison(xrandom, yrandom);
+    }
+
     //EFFECTS: return true if player touch food
     public Boolean canEat() {
         return food.hit(player);
+    }
+
+    public Boolean canPoison() {
+        return poison.hit(player);
     }
 
     //EFFECTS: return true if player touch treasure
@@ -302,6 +333,11 @@ public class Frame {
     //EFFECTS: return food
     public Food getFood() {
         return food;
+    }
+
+    //EFFECTS: return poison
+    public Poison getPoison() {
+        return poison;
     }
 
     //EFFECTS: return velY

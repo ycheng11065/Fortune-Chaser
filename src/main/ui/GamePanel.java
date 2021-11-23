@@ -1,9 +1,7 @@
 package ui;
 
-import model.Food;
+import model.*;
 import model.Frame;
-import model.Player;
-import model.Treasure;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +17,8 @@ public class GamePanel extends JPanel {
     private static final String REPLAY = "R to replay";
     private static final String FORTUNE = "I to show fortune";
     private static final String SAVE = "O to save fortune messages";
+    private static final String LOG = "L to view log";
+
     private Frame game;
 
     //EFFECT: Set size and background color to panel as well as drawing the game
@@ -45,6 +45,7 @@ public class GamePanel extends JPanel {
         drawPlayer(g);
         drawFood(g);
         drawTreasure(g);
+        drawPoison(g);
     }
 
     //MODIFIES: g
@@ -79,6 +80,17 @@ public class GamePanel extends JPanel {
 
     }
 
+    //MODIFIES: G
+    //EFFECTS: Draw poison onto g
+    private void drawPoison(Graphics g) {
+        Poison p = game.getPoison();
+        Color savedCol = g.getColor();
+        g.setColor(Poison.COLOUR);
+        g.fillOval(p.getX() - Poison.SIZEX / 2, p.getY() - Poison.SIZEY / 2, Poison.SIZEX, Poison.SIZEY);
+        g.setColor(savedCol);
+
+    }
+
     //MODIFIES: g
     //EFFECTS: Draw "game over" as well as showing instruction for replay and saving fortune message
     private void gameOver(Graphics g) {
@@ -90,6 +102,7 @@ public class GamePanel extends JPanel {
         centreString(REPLAY, g, fm, Frame.HEIGHT / 2 - 50);
         centreString(FORTUNE, g, fm, Frame.HEIGHT / 2);
         centreString(SAVE, g, fm, Frame.HEIGHT / 2 + 50);
+        centreString(LOG, g, fm, Frame.HEIGHT / 2 + 100);
         g.setColor(saved);
     }
 

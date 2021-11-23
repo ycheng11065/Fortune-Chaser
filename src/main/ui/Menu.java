@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
@@ -29,16 +28,18 @@ public class Menu extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/gameFile.json";
     private GameFile gameFile;
     private JsonReader jsonReader;
-    private FileWriter fw;
+    private JLabel gameTitle;
 
     //EFFECT: Creates a panel containing two buttons
     public Menu() {
+
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
         setIconImage(icon);
 
+        gameTitle = new JLabel("Fortune Chaser");
+
         gameFile = new GameFile("My gamefile");
         jsonReader = new JsonReader(JSON_STORE);
-
 
         button1 = new JButton("Start game");
         button1.addActionListener(this);
@@ -49,13 +50,8 @@ public class Menu extends JFrame implements ActionListener {
         button3 = new JButton("Print Log");
         button3.addActionListener(this);
 
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(button1);
-        panel.add(button2);
+        setPanel();
 
-        add(panel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         closed();
         setTitle("Fortune Chaser");
@@ -78,7 +74,7 @@ public class Menu extends JFrame implements ActionListener {
         if (e.getSource() == button1) {
             try {
                 new FortuneChaser(gameFile, JSON_STORE);
-                this.dispose();
+                setVisible(false);
 
             } catch (FileNotFoundException ex) {
                 System.out.println("Unable to run application: file not found");
@@ -86,8 +82,6 @@ public class Menu extends JFrame implements ActionListener {
         } else if (e.getSource() == button2) {
             loadSaveFile();
 
-        } else if (e.getSource() == button3) {
-            System.out.println(EventLog.getInstance());
         }
     }
 
@@ -106,13 +100,23 @@ public class Menu extends JFrame implements ActionListener {
     public void closed() {
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosed(WindowEvent e) {
-                System.out.println("Closing");
+            public void windowClosing(WindowEvent e) {
                 for (Event next: EventLog.getInstance()) {
                     System.out.println(next);
                 }
+                System.exit(0);
             }
         });
+    }
+
+    public void setPanel() {
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(gameTitle);
+        panel.add(button1);
+        panel.add(button2);
+        add(panel, BorderLayout.CENTER);
     }
 
 }
