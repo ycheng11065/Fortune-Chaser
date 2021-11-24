@@ -66,6 +66,7 @@ public class Frame {
             System.out.println(player.getYcoord());
             updateFood();
             updateTreasure();
+            updatePoison();
             if (canPoison()) {
                 poison = spawnPoison();
             }
@@ -93,6 +94,12 @@ public class Frame {
             EventLog.getInstance().logEvent(new Event("Fortune cookie collected"));
             treasureScore++;
             treasure = spawnTreasure();
+        }
+    }
+
+    public void updatePoison() {
+        if (canPoison()) {
+            pocket.clear();
         }
     }
 
@@ -175,7 +182,6 @@ public class Frame {
 
         int xrandom = rand.nextInt(upperboundx - lowerbound) + lowerbound;
         int yrandom = rand.nextInt(upperboundy - lowerbound) + lowerbound;
-
 
         return new Poison(xrandom, yrandom);
     }

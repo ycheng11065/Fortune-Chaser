@@ -25,4 +25,7 @@ public class Pocket {
         return pocket;
     }
 
+    public void clear() {
+        pocket.clear();
+    }
 }
