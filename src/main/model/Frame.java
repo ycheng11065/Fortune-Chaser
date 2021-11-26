@@ -99,6 +99,7 @@ public class Frame {
 
     public void updatePoison() {
         if (canPoison()) {
+            EventLog.getInstance().logEvent(new Event("Poisoned"));
             pocket.clear();
         }
     }

@@ -5,10 +5,6 @@ import model.Treasure;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,15 +27,11 @@ public class LoadPanel extends JFrame {
 
         this.treasures = treasures;
 
-//        JButton button1 = new JButton("Delete Fortune");
-//        button1.addActionListener(this);
-
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
         setTitle("Fortune Panel");
 
-//        add(button1);
         GridLayout g1 = new GridLayout();
         g1.setRows(treasures.size() + 1);
         setLayout(g1);
@@ -59,14 +51,6 @@ public class LoadPanel extends JFrame {
         }
         pack();
     }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        List<Treasure> zero =  new ArrayList<>();
-//        new LoadPanel(zero);
-//        this.dispose();
-//
-//    }
 
     //EFFECTS: Centers frame
     private void centerOnScreen() {

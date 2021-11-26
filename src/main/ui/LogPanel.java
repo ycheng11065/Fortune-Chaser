@@ -31,14 +31,6 @@ public class LogPanel extends JFrame {
         setPreferredSize(new Dimension(500, 500));
         setVisible(true);
         setTitle("Log Panel");
-//        addWindowListener(new WindowAdapter() {
-//
-//            @Override
-//            public void windowClosed(WindowEvent e) {
-//                System.out.println("LogPanel closing");
-//                dispose();
-//            }
-//        });
 
         GridLayout g1 = new GridLayout();
         g1.setRows(game.getFoodScore() + game.getTreasureScore() + game.getGameCount() + 1);
