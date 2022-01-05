@@ -1,8 +1,10 @@
 package model;
 
+import manager.ImageInventory;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Represents a treasure at pos x y
@@ -15,6 +17,8 @@ public class Treasure extends Consumables {
     // EFFECTS: Creates a treasure at x y
     public Treasure(int x, int y) {
         super(x, y);
+        this.image = ImageInventory.getCookie();
+        this.name = "Treasure";
     }
 
     // MODIFIES: this

@@ -2,7 +2,7 @@ package ui;
 
 import model.Event;
 import model.EventLog;
-import model.Frame;
+import model.MainGame;
 import model.GameFile;
 import persistence.JsonReader;
 
@@ -55,17 +55,10 @@ public class Menu extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         closed();
         setTitle("Fortune Chaser");
-        setPreferredSize(new Dimension(model.Frame.WIDTH, Frame.HEIGHT));
+        setPreferredSize(new Dimension(MainGame.FRAMEWIDTH, MainGame.FRAMEHEIGHT));
         pack();
         setVisible(true);
-        centerOnScreen();
-
-    }
-
-    //EFFECT: Centers the panel
-    private void centerOnScreen() {
-        Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
+        setLocationRelativeTo((Component) null);
     }
 
     //EFFECT: Connect the two gui button to action events

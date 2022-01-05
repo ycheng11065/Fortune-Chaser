@@ -1,9 +1,13 @@
 package ui;
 
-import model.Frame;
+import model.MainGame;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.text.DecimalFormat;
 
 /**
  * Create a panel showing scores
@@ -11,39 +15,68 @@ import java.awt.*;
  */
 
 public class ScorePanel extends JPanel {
-    private static final String ITEM_TXT = "Item picked up";
-    private static final String HEALTH_TXT = "Health Remaining";
-    private static final String TREASURE_TXT = "Treasure picked up";
-    private static final int LBL_WIDTH = 200;
-    private static final int LBL_HEIGHT = 30;
-    private Frame game;
-    private JLabel itemLbl;
-    private JLabel healthLbl;
-    private JLabel treasureLbl;
+    private MainGame game;
+    private int cookieCounter;
+    private int bootCounter;
+    private double playTime;
+    private DecimalFormat decimalFormat;
+
+    private BufferedImage transparentCookie;
 
     //EFFECTS: sets the background colour and draws initial labels where it is constantly updated by game
-    public ScorePanel(Frame g) {
+    public ScorePanel(MainGame g) {
         game = g;
         setBackground(new Color(180, 180, 180));
-        itemLbl = new JLabel(ITEM_TXT + game.getFoodScore());
-        itemLbl.setPreferredSize(new Dimension(LBL_WIDTH, LBL_HEIGHT));
-        healthLbl = new JLabel(HEALTH_TXT + game.getPlayer().getHealth());
-        healthLbl.setPreferredSize(new Dimension(LBL_WIDTH, LBL_HEIGHT));
-        treasureLbl = new JLabel(TREASURE_TXT + game.getTreasureScore());
-        treasureLbl.setPreferredSize(new Dimension(LBL_WIDTH, LBL_HEIGHT));
-        add(treasureLbl);
-        add(Box.createHorizontalStrut(10));
-        add(itemLbl);
-        add(Box.createHorizontalStrut(10));
-        add(healthLbl);
+        decimalFormat = new DecimalFormat("#0.00");
+
+        try {
+            transparentCookie = ImageIO.read(getClass().getResourceAsStream(("/sprites/transparentCookie.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //MODIFIES: this
     //EFFECTS: update number of food and treasure collected as well as show player health remaining
-    public void update() {
-        treasureLbl.setText(TREASURE_TXT + " " + game.getTreasureScore());
-        itemLbl.setText(ITEM_TXT + " " + game.getFoodScore());
-        healthLbl.setText(HEALTH_TXT + " " + game.getPlayer().getHealth());
-        repaint();
+    public void draw(Graphics g) {
+        g.drawRect(20, 16, game.TILE_SIZE * 4, game.TILE_SIZE);
+        g.setColor(new Color(192, 192, 192, 200));
+        g.fillRect(20, 16, game.TILE_SIZE * 4, game.TILE_SIZE);
+
+        g.setFont(GamePanel.customFont70);
+        g.setColor(Color.WHITE);
+        g.drawString(" X " + game.getTreasureScore(), game.TILE_SIZE / 2 + 60, game.TILE_SIZE + 7);
+        g.drawImage(transparentCookie, game.TILE_SIZE / 2, game.TILE_SIZE / 2 - 15
+                , game.TILE_SIZE, game.TILE_SIZE, null);
+
+
+        g.drawRect(game.TILE_SIZE * 11 + 40, 16, game.TILE_SIZE * 4 + 2, game.TILE_SIZE);
+        g.setColor(new Color(192, 192, 192, 200));
+        g.fillRect(game.TILE_SIZE * 11 + 40, 16, game.TILE_SIZE * 4 + 2, game.TILE_SIZE);
+        g.setColor(Color.WHITE);
+        g.drawString("Time: " + decimalFormat.format(playTime), game.TILE_SIZE * 11 + 40, 68);
+
+        if (!game.getisGameOver() && !game.getIsGameWon()) {
+            playTime += (double) 1/60;
+
+        }
+
+        if (game.getMessageCode() == 1) {
+            g.setFont(GamePanel.customFont30);
+            g.drawString("Picked up fortune cookie!", game.TILE_SIZE / 2, game.TILE_SIZE * 5);
+            cookieCounter++;
+            if (cookieCounter > 120) {
+                cookieCounter = 0;
+                game.setMessageCode(0);
+            }
+        } else if (game.getMessageCode() == 2) {
+            g.setFont(GamePanel.customFont30);
+            g.drawString("Picked up boots!", game.TILE_SIZE / 2, game.TILE_SIZE * 5);
+            bootCounter++;
+            if (bootCounter > 120) {
+                bootCounter = 0;
+                game.setMessageCode(0);
+            }
+        }
     }
 }

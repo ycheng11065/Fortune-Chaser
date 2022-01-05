@@ -1,6 +1,6 @@
 package ui;
 
-import model.Frame;
+import model.MainGame;
 import model.Treasure;
 
 import javax.swing.*;
@@ -11,15 +11,15 @@ import java.awt.*;
  * Reference: SpaceInvader
  */
 
-public class FortunePanel extends JFrame {
+public class FortunePanel extends JFrame implements Panel {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
 
     private static final String FORTUNE_TXT = "Your fortune: ";
-    private Frame game;
+    private MainGame game;
 
     //EFFECT: Create a frame showing all fortune message from collected cookies
-    public FortunePanel(Frame frame) {
+    public FortunePanel(MainGame frame) {
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
         setIconImage(icon);
         game = frame;
@@ -50,7 +50,7 @@ public class FortunePanel extends JFrame {
     }
 
     //EFFECT: Centers frame
-    private void centerOnScreen() {
+    public void centerOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }

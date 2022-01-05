@@ -1,6 +1,5 @@
 package ui;
 
-import model.Frame;
 import model.Treasure;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ import java.util.List;
  * Reference: JsonSerialization demo, SpaceInvader
  */
 
-public class LoadPanel extends JFrame {
+public class LoadPanel extends JFrame implements Panel {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
 
@@ -53,7 +52,7 @@ public class LoadPanel extends JFrame {
     }
 
     //EFFECTS: Centers frame
-    private void centerOnScreen() {
+    public void centerOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }

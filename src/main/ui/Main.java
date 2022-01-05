@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -25,6 +26,8 @@ public class Main {
 //            e.printStackTrace();
 //        }
 //        window.setVisible(false);
+//        window.setLocationRelativeTo((Component) null);
+
         new Menu();
 
     }

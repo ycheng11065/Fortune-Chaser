@@ -1,6 +1,8 @@
 package ui;
 
-import model.Frame;
+//import manager.Handler;
+import manager.World;
+import model.MainGame;
 import model.GameFile;
 import model.Treasure;
 import persistence.JsonWriter;
@@ -20,25 +22,25 @@ public class FortuneChaser extends JFrame {
 
     private static final int Interval = 10;
 
-    private Frame game;
+    private MainGame game;
     private GamePanel gp;
     private ScorePanel sp;
+    private World wr;
 
     private String jsonStore;
     private GameFile gameFile;
     private JsonWriter jsonWriter;
-    private Boolean isClosed;
 
     //EFFECT: Set main window where game takes place
     public FortuneChaser(GameFile gameFile, String store) throws FileNotFoundException {
         super("FortuneChaser");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setUndecorated(false);
-        game =  new Frame();
+        game =  new MainGame();
         gp = new GamePanel(game);
         sp = new ScorePanel(game);
         add(gp);
-        add(sp, BorderLayout.NORTH);
+        add(sp, BorderLayout.SOUTH);
         addKeyListener(new KeyHandler());
         pack();
         centerOnScreen();
@@ -62,8 +64,8 @@ public class FortuneChaser extends JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 game.update();
-                sp.update();
                 gp.repaint();
+//                sp.repaint();
             }
         });
 
@@ -82,13 +84,13 @@ public class FortuneChaser extends JFrame {
         public void keyPressed(KeyEvent e) {
             game.keyPressed(e.getKeyCode());
 
-            if (e.getKeyCode() == KeyEvent.VK_O && game.getisGameOver() == true) {
+            if (e.getKeyCode() == KeyEvent.VK_O && (game.getisGameOver() || game.getIsGameWon())) {
                 gameFile.clearJson();
                 addPocket();
                 saveGameFile();
-            } else if (e.getKeyCode() == KeyEvent.VK_R && game.getisGameOver() == true) {
+            } else if (e.getKeyCode() == KeyEvent.VK_R && (game.getisGameOver() || game.getIsGameWon())) {
                 game.start();
-            } else if (e.getKeyCode() == KeyEvent.VK_I && game.getisGameOver() == true) {
+            } else if (e.getKeyCode() == KeyEvent.VK_I && (game.getisGameOver() || game.getIsGameWon())) {
                 FortunePanel fp = new FortunePanel(game);
                 fp.update();
             } else if (e.getKeyCode() == KeyEvent.VK_X) {
@@ -129,11 +131,14 @@ public class FortuneChaser extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
+//                int amount = game.getObjs().size();
                 new Menu();
+                if (game.getSound().getClip() != null) {
+                    game.stopSE();
+                }
+                game.stopMusic();
+                game.setGameOver(true);
             }
         });
     }
-
-
-
 }

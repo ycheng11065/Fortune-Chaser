@@ -2,28 +2,25 @@ package ui;
 
 import model.Event;
 import model.EventLog;
-import model.Frame;
-import model.Treasure;
+import model.MainGame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /**
  * Frame showing all the fortune message collected
  * Reference: SpaceInvader
  */
 
-public class LogPanel extends JFrame {
+public class LogPanel extends JFrame implements Panel {
     private static final int LABEL_WIDTH = 50;
     private static final int LABEL_HEIGHT = 50;
 
     private static final String LOG_TEXT = "Log: ";
-    private Frame game;
+    private MainGame game;
 
     //EFFECT: Create a frame showing all fortune message from collected cookies
-    public LogPanel(Frame frame) {
+    public LogPanel(MainGame frame) {
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
         setIconImage(icon);
         game = frame;
@@ -54,7 +51,7 @@ public class LogPanel extends JFrame {
     }
 
     //EFFECT: Centers frame
-    private void centerOnScreen() {
+    public void centerOnScreen() {
         Dimension scrn = Toolkit.getDefaultToolkit().getScreenSize();
         setLocation((scrn.width - getWidth()) / 2, (scrn.height - getHeight()) / 2);
     }
