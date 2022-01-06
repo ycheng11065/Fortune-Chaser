@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class GamePanel extends JPanel {
     static Font customFont40;
     static Font customFont30;
 
+    private static final String PAUSE = "Paused";
     private static final String OVER = "Game Over!";
     private static final String OVER2 = "You have unfortunately died!";
     private static final String WON = "Congratulations!";
@@ -33,6 +35,7 @@ public class GamePanel extends JPanel {
     private World wr;
     private MainGame game;
     private ScorePanel sp;
+    private DecimalFormat decimalFormat;
 
 //    private Consumables[] objs = new Consumables[10];
 //    private ObjectSetter objectSetter;
@@ -45,6 +48,7 @@ public class GamePanel extends JPanel {
         this.game = game;
         game.setWr(wr);
         sp = new ScorePanel(game);
+        decimalFormat = new DecimalFormat("#0.000000");
 
         try {
             InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
@@ -54,9 +58,7 @@ public class GamePanel extends JPanel {
             customFont30 = customFont70.deriveFont(Font.PLAIN, 30);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-        }
-//        objectSetter = new ObjectSetter(this);
-//        objectSetter.setObject();
+        };
     }
 
     @Override
@@ -85,9 +87,25 @@ public class GamePanel extends JPanel {
         drawFood(g);
         drawPoison(g);
         sp.draw(g);
-        long drawEnd = System.nanoTime();
-        long passed = drawEnd - drawStart;
-        System.out.println("Draw Time: " + passed);
+        double drawEnd = System.nanoTime();
+        double passed = drawEnd - drawStart;
+        double time = (passed / Math.pow(10, 9));
+        System.out.println("Draw Time: " + decimalFormat.format(time) + " seconds");
+        if (game.getGameState() == game.PAUSESTATE) {
+            drawPauseScreen(g);
+        }
+    }
+
+    private void drawPauseScreen(Graphics g) {
+        g.drawRect(game.FRAMEWIDTH / 2 - 5 * game.TILE_SIZE, game.FRAMEHEIGHT / 2 - 5 * game.TILE_SIZE
+                , (5 * game.TILE_SIZE) * 2, (5 * game.TILE_SIZE) * 2);
+        g.setColor(new Color(192, 192, 192, 230));
+        g.fillRect(game.FRAMEWIDTH / 2 - 5 * game.TILE_SIZE, game.FRAMEHEIGHT / 2 - 5 * game.TILE_SIZE
+                , (5 * game.TILE_SIZE) * 2, (5 * game.TILE_SIZE) * 2);
+        g.setColor(new Color(0, 0, 0));
+        g.setFont(customFont40);
+        FontMetrics fm = g.getFontMetrics();
+        centreString(PAUSE, g, fm, MainGame.FRAMEHEIGHT / 2 - 200);
     }
 
 

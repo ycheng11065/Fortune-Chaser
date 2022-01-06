@@ -56,7 +56,7 @@ public class ScorePanel extends JPanel {
         g.setColor(Color.WHITE);
         g.drawString("Time: " + decimalFormat.format(playTime), game.TILE_SIZE * 11 + 40, 68);
 
-        if (!game.getisGameOver() && !game.getIsGameWon()) {
+        if (!game.getisGameOver() && !game.getIsGameWon() && game.getGameState() != game.PAUSESTATE) {
             playTime += (double) 1/60;
 
         }

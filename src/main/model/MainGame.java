@@ -121,8 +121,8 @@ public class MainGame {
         if (!isGameOver && !isGameWon && gameState == PLAYSTATE) {
             player.moveX(velX);
             player.moveY(velY);
-            System.out.println(player.getWorldX());
-            System.out.println(player.getWorldY());
+//            System.out.println(player.getWorldX());
+//            System.out.println(player.getWorldY());
             updateFood();
             updateTreasure();
             updatePoison();
@@ -190,20 +190,29 @@ public class MainGame {
     //MODIFIES: this
     //EFFECTS: Connect key press to specific function
     public void keyPressed(int keyCode) {
-        if (keyCode == KeyEvent.VK_W) {
-            player.setDir("up");
-            velY = -1 * player.getSpeed();
-        } else if (keyCode == KeyEvent.VK_S) {
-            player.setDir("down");
-            velY = player.getSpeed();
-        } else if (keyCode == KeyEvent.VK_A) {
-            player.setDir("left");
-            velX = -1 * player.getSpeed();
-        } else if (keyCode == KeyEvent.VK_D) {
-            player.setDir("right");
-            velX = player.getSpeed();
-        } else if （key
+        if (keyCode == KeyEvent.VK_P) {
+            if (gameState == PLAYSTATE) {
+                gameState = PAUSESTATE;
+            } else if (gameState == PAUSESTATE) {
+                gameState = PLAYSTATE;
+            }
+        }
 
+        if (gameState != PAUSESTATE) {
+            if (keyCode == KeyEvent.VK_W) {
+                player.setDir("up");
+                velY = -1 * player.getSpeed();
+            } else if (keyCode == KeyEvent.VK_S) {
+                player.setDir("down");
+                velY = player.getSpeed();
+            } else if (keyCode == KeyEvent.VK_A) {
+                player.setDir("left");
+                velX = -1 * player.getSpeed();
+            } else if (keyCode == KeyEvent.VK_D) {
+                player.setDir("right");
+                velX = player.getSpeed();
+            }
+        }
     }
 
     //MODIFIES: this
@@ -533,5 +542,9 @@ public class MainGame {
 
     public boolean getIsGameWon() {
         return isGameWon;
+    }
+
+    public int getGameState() {
+        return gameState;
     }
 }
