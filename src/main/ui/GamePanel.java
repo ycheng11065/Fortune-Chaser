@@ -37,9 +37,6 @@ public class GamePanel extends JPanel {
     private ScorePanel sp;
     private DecimalFormat decimalFormat;
 
-//    private Consumables[] objs = new Consumables[10];
-//    private ObjectSetter objectSetter;
-
     //EFFECT: Set size and background color to panel as well as drawing the game
     public GamePanel(MainGame game) {
         wr = new World(game, "/maps/world1.txt");
@@ -83,17 +80,29 @@ public class GamePanel extends JPanel {
         drawStart = System.nanoTime();
         wr.render(g);
         drawTreasure(g);
-        drawPlayer(g);
-        drawFood(g);
-        drawPoison(g);
+        if (game.getPlayer().getWorldY() < game.getGuide().getWorldY()) {
+            drawPlayer(g);
+            drawGuide(g);
+            System.out.println("behind");
+        } else if (game.getPlayer().getWorldY() >= game.getGuide().getWorldY()){
+            drawGuide(g);
+            drawPlayer(g);
+            System.out.println("front");
+        }
+//        drawFood(g);
+//        drawPoison(g);
         sp.draw(g);
         double drawEnd = System.nanoTime();
         double passed = drawEnd - drawStart;
         double time = (passed / Math.pow(10, 9));
-        System.out.println("Draw Time: " + decimalFormat.format(time) + " seconds");
+//        System.out.println("Draw Time: " + decimalFormat.format(time) + " seconds");
         if (game.getGameState() == game.PAUSESTATE) {
             drawPauseScreen(g);
         }
+    }
+
+    public void resetTime() {
+        sp.resetPlayTime();
     }
 
     private void drawPauseScreen(Graphics g) {
@@ -112,7 +121,20 @@ public class GamePanel extends JPanel {
     //MODIFIES: g
     //EFFECTS: Draw player onto g
     private void drawPlayer(Graphics g) {
-        g.drawImage(game.getCurrentAnimation(), game.getScreenx(), game.getScreeny(), game.TILE_SIZE, game.TILE_SIZE, null);
+        game.getPlayer().currentAnimation();
+        game.getPlayer().draw(g);
+        g.setColor(Color.cyan);
+        g.drawRect(game.getScreenx(),game.getScreeny() , MainGame.TILE_SIZE, MainGame.TILE_SIZE);
+//        g.drawRect(game.getPlayer().getWorldX() - MainGame.TILE_SIZE / 2,
+//                game.getPlayer().getWorldY() - MainGame.TILE_SIZE / 2, MainGame.TILE_SIZE, MainGame.TILE_SIZE);
+//        g.setColor(Color.cyan);
+//        g.fillRect(game.getPlayer().getWorldX() - MainGame.TILE_SIZE / 2,
+//                game.getPlayer().getWorldY() - MainGame.TILE_SIZE / 2, MainGame.TILE_SIZE, MainGame.TILE_SIZE);
+    }
+
+    private void drawGuide(Graphics g) {
+        game.getGuide().getCurrentAnimation();
+        game.getGuide().draw(g);
     }
 
     //MODIFIES: G

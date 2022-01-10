@@ -18,7 +18,7 @@ public class MainGame {
     public final static int ORIGINAL_TILE_SIZE = 16; // 16 x 16 tile
     public final static int SCALE = 4;
 
-    public final static int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // 48 x 48 tile
+    public final static int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // 64 x 64 tile
     public final static int MAXSCREENCOL = 16;
     public final static int MAXSCREENROW = 12;
     public final static int FRAMEWIDTH = TILE_SIZE * MAXSCREENCOL;   // 768 pixels, orig: 800
@@ -34,34 +34,22 @@ public class MainGame {
     private final int screeny; // Center of screen
 
     public static final int HUNGER_DMG = 1;
-    public static final Random RAND = new Random();
-
     public static final int PLAYSTATE = 1;
     public static final int PAUSESTATE = 2;
 
     private Player player;
+    private NpcGuide guide;
     private Food food;
     private Treasure treasure;
     private Pocket pocket;
     private Poison poison;
 
-    private String msg;
     private boolean isGameOver;
     private boolean isGameWon;
-    private int velX = 0;
-    private int velY = 0;
     private int foodScore;
     private int treasureScore;
     private ArrayList<String> fortune;
     private int gameCount;
-
-    private Animation anmStill;
-    private Animation anmDown;
-    private Animation anmUp;
-    private Animation anmLeft;
-    private Animation anmRight;
-
-    private CollisionChecker collisionChecker;
 
     private ArrayList<Consumables> objs = new ArrayList<Consumables>();
     private ObjectSetter objectSetter;
@@ -78,18 +66,12 @@ public class MainGame {
 
     //EFFECT: start game
     public MainGame() {
+        ImageInventory.init();
         screenx = FRAMEWIDTH / 2 - TILE_SIZE / 2;
         screeny = FRAMEHEIGHT / 2 - TILE_SIZE / 2;
-        ImageInventory.init();
         gameCount = 0;
-        anmStill = new Animation(500, ImageInventory.getPlayerStill());
-        anmDown = new Animation(500, ImageInventory.getPlayerUp());
-        anmUp = new Animation(500, ImageInventory.getPlayerDown());
-        anmLeft = new Animation(500, ImageInventory.getPlayerLeft());
-        anmRight = new Animation(500, ImageInventory.getPlayerRight());
         sound = new Sound();
         music = new Sound();
-        collisionChecker = new CollisionChecker(this);
         objectSetter = new ObjectSetter(this);
         start();
     }
@@ -99,11 +81,12 @@ public class MainGame {
     public void start() {
         gameState = PLAYSTATE;
         EventLog.getInstance().logEvent(new Event("New game begun"));
-        player = new Player(TILE_SIZE * 6, TILE_SIZE * 6, Player.HEALTH, this);
+        player = new Player(TILE_SIZE * 0, TILE_SIZE * 6, Player.HEALTH, this);
+        guide = new NpcGuide(guide.HEALTH, TILE_SIZE * 5, TILE_SIZE * 5, this);
         pocket = new Pocket();
         fortune = new ArrayList<String>();
-        food = spawnFood();
-        poison = spawnPoison();
+//        food = spawnFood();
+//        poison = spawnPoison();
         objectSetter = new ObjectSetter(this);
         objectSetter.setObject();
         addMsg();
@@ -111,7 +94,7 @@ public class MainGame {
         isGameWon = false;
         foodScore = 0;
         treasureScore = 0;
-        playMusic(0);
+//        playMusic(0);
         gameCount++;
     }
 
@@ -119,21 +102,28 @@ public class MainGame {
     //EFFECTS: Update movement, check to spawn food, check to spawn treasure, check if game over, reduce player health,
     public void update() {
         if (!isGameOver && !isGameWon && gameState == PLAYSTATE) {
-            player.moveX(velX);
-            player.moveY(velY);
+            player.moveX();
+//            System.out.println(player.getWorldX());
+            player.moveY();
+            guide.move();
+            guide.moveX();
+            guide.moveY();
+
 //            System.out.println(player.getWorldX());
 //            System.out.println(player.getWorldY());
-            updateFood();
-            updateTreasure();
-            updatePoison();
-            animationTick();
-            if (canPoison()) {
-                poison = spawnPoison();
-            }
+//            updateFood();
+            updateConsummables();
+//            updatePoison();
+            player.animationTick();
+            guide.animationTick();
+
+//            if (canPoison()) {
+//                poison = spawnPoison();
+//            }
 //            if (player.getHealth() > 0) {
 //                playerHunger();
 //            }
-            animationTick();
+//            animationTick();
             gameWon();
             gameOver();
 
@@ -151,7 +141,7 @@ public class MainGame {
         }
     }
 
-    public void updateTreasure() {
+    public void updateConsummables() {
         if (canPickUp()) {
             if (obj.getName() == "Treasure") {
                 messageCode = 1;
@@ -179,13 +169,6 @@ public class MainGame {
         }
     }
 
-    public void animationTick() {
-        anmStill.tick();
-        anmDown.tick();
-        anmUp.tick();
-        anmRight.tick();
-        anmLeft.tick();
-    }
 
     //MODIFIES: this
     //EFFECTS: Connect key press to specific function
@@ -200,17 +183,13 @@ public class MainGame {
 
         if (gameState != PAUSESTATE) {
             if (keyCode == KeyEvent.VK_W) {
-                player.setDir("up");
-                velY = -1 * player.getSpeed();
+                player.setVelY(-1 * player.getSpeed());
             } else if (keyCode == KeyEvent.VK_S) {
-                player.setDir("down");
-                velY = player.getSpeed();
+                player.setVelY(player.getSpeed());
             } else if (keyCode == KeyEvent.VK_A) {
-                player.setDir("left");
-                velX = -1 * player.getSpeed();
+                player.setVelX(-1 * player.getSpeed());
             } else if (keyCode == KeyEvent.VK_D) {
-                player.setDir("right");
-                velX = player.getSpeed();
+                player.setVelX(player.getSpeed());
             }
         }
     }
@@ -218,28 +197,10 @@ public class MainGame {
     //MODIFIES: this
     //EFFECTS: Releasing key stop player movement
     public void keyReleased(int keyCode) {
-        if (keyCode == KeyEvent.VK_W) {
-            velY = 0;
-        } else if (keyCode == KeyEvent.VK_S) {
-            velY = 0;
-        } else if (keyCode == KeyEvent.VK_A) {
-            velX = 0;
-        } else if (keyCode == KeyEvent.VK_D) {
-            velX = 0;
-        }
-    }
-
-    public BufferedImage getCurrentAnimation() {
-        if (velX < 0) {
-            return anmLeft.getCurrentFrame();
-        } else if (velX > 0) {
-            return anmRight.getCurrentFrame();
-        } else if (velY < 0) {
-            return anmDown.getCurrentFrame();
-        } else if (velY > 0) {
-            return anmUp.getCurrentFrame();
-        } else {
-            return anmStill.getCurrentFrame();
+        if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_S) {
+            player.setVelY(0);
+        } else if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_D) {
+            player.setVelX(0);
         }
     }
 
@@ -404,25 +365,13 @@ public class MainGame {
     }
 
     //MODIFIES: this
-    //EFFECTS: set velx with new value
-    public void setVelX(int x) {
-        velX = x;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: set vely with new value
-    public void setVelY(int y) {
-        velY = y;
-    }
-
-    //MODIFIES: this
     //EFFECTS: put random msg within treasure, if fortune is out of msg then return out of fortune
     public void setMsg(Treasure yes) {
         Random r = new Random();
         if (fortune.size() == 0) {
             treasure.addMsg("Out of fortune");
         } else {
-            msg = fortune.get(r.nextInt(fortune.size()));
+            String msg = fortune.get(r.nextInt(fortune.size()));
             yes.addMsg(msg);
             fortune.remove(msg);
         }
@@ -470,11 +419,6 @@ public class MainGame {
         return pocket;
     }
 
-    //EFFECTS: return velY
-    public int getVelY() {
-        return velY;
-    }
-
     //EFFECTS: return fortune
     public ArrayList<String> getFortune() {
         return fortune;
@@ -488,11 +432,6 @@ public class MainGame {
     //EFFECTS: return poison
     public Poison getPoison() {
         return poison;
-    }
-
-    //EFFECTS: return velY
-    public int getVelX() {
-        return velX;
     }
 
     //EFFECTS: return game count
@@ -547,4 +486,9 @@ public class MainGame {
     public int getGameState() {
         return gameState;
     }
+
+    public NpcGuide getGuide() {
+        return guide;
+    }
+
 }

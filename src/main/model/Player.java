@@ -1,141 +1,44 @@
 package model;
 
-import manager.Tile;
-import ui.GamePanel;
-import ui.Main;
+import manager.Animation;
+import manager.ImageInventory;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Represents a player with a position a coordinate x y and health
  * Reference: Space Invader
  */
 
-public class Player {
+public class Player extends Entity {
+    public static final int ANIMSPEED = 100;
 
-    public static final int HEALTH = 200;
-    public static final int SIZEX = 480;
-    public static final int SIZEY = 480;
-
-    private int health;
-    private int worldX;
-    private int worldY;
-
-    private Rectangle solidArea;
-    private Boolean collisonOn = false;
-    private int speed = 5;
-
-    private String dir = "still";
-
-    private MainGame game;
+    private final Animation anmStill;
+    private final Animation anmDown;
+    private final Animation anmUp;
+    private final Animation anmLeft;
+    private final Animation anmRight;
 
     //EFFECTS: Creates the player at the desired x y coordinate with health
     public Player(int x, int y, int h, MainGame game) {
-        this.worldX = x;
-        this.worldY = y;
-        this.health = h;
-        this.game = game;
+        super(h, x, y, game);
+        this.speed = 5;
 
-        solidArea = new Rectangle(8, 30, 32, 25); // Player collision rectangle
-        // 8 16
+        anmStill = new Animation(ANIMSPEED, ImageInventory.getPlayerStill());
+        anmDown = new Animation(ANIMSPEED, ImageInventory.getPlayerUp());
+        anmUp = new Animation(ANIMSPEED, ImageInventory.getPlayerDown());
+        anmLeft = new Animation(ANIMSPEED, ImageInventory.getPlayerLeft());
+        anmRight = new Animation(ANIMSPEED, ImageInventory.getPlayerRight());
     }
 
-    //MODIFIES: this
-    //EFFECTS: Move player horizontally in vel direction
-    public void moveX(int vel) {
-        if (vel > 0) {
-            int tx = (int) (worldX + vel + solidArea.x + solidArea.width) / MainGame.TILE_SIZE;
-            if (!collisionWithTile(tx, (int) (worldY + solidArea.y) / MainGame.TILE_SIZE) &&
-                    !collisionWithTile(tx, (int) (worldY + solidArea.y + solidArea.height) / MainGame.TILE_SIZE)) {
-                worldX += vel;
-            }  else {
-                worldX = tx * MainGame.TILE_SIZE - solidArea.x - solidArea.width -1;
-            }
-        } else if (vel < 0) {
-            int tx = (int) (worldX + vel + solidArea.x) / MainGame.TILE_SIZE;
 
-            if (!collisionWithTile(tx, (int) (worldY + solidArea.y) / MainGame.TILE_SIZE) &&
-                    !collisionWithTile(tx, (int) (worldY + solidArea.y + solidArea.height) / MainGame.TILE_SIZE)) {
-                worldX += vel;
-            } else {
-                worldX = tx * MainGame.TILE_SIZE + MainGame.TILE_SIZE - solidArea.x;
-            }
-        }
-//        xboundary();
-    }
-
-    //MODIFIES: this
-    //EFFECTS: Move player vertically in vel direction
-    public void moveY(int vel) {
-        if (vel > 0) {
-            int ty = (int) (worldY + vel + solidArea.y + solidArea.height) / MainGame.TILE_SIZE;
-
-            if (!collisionWithTile((int) (worldX + solidArea.x) / MainGame.TILE_SIZE, ty) &&
-                    !collisionWithTile((int) (worldX + solidArea.x + solidArea.width) / MainGame.TILE_SIZE, ty)) {
-                worldY += vel;
-            }  else {
-                worldY = ty * MainGame.TILE_SIZE - solidArea.y - solidArea.height - 1;
-            }
-        } else if (vel < 0) {
-            int ty = (int) (worldY + vel + solidArea.y) / MainGame.TILE_SIZE;
-
-            if (!collisionWithTile((int) (worldX + solidArea.x) / MainGame.TILE_SIZE, ty) &&
-                    !collisionWithTile((int) (worldX + solidArea.x + solidArea.width) / MainGame.TILE_SIZE, ty)) {
-                worldY += vel;
-            }  else {
-                worldY = ty * MainGame.TILE_SIZE + MainGame.TILE_SIZE - solidArea.y;
-            }
-        }
-//        worldY += vel;
-//        yboundary();
-    }
-
-    public boolean collisionWithTile(int x, int y) {
-        int tile = game.getWr().getTileNum(x, y);
-        return game.getWr().getTile(tile).getCollision();
-    }
-
-    //MODIFIES: this
-    //EFFECT: Constrain player from leaving game boundary on x axis
-    private void xboundary() {
-        if (worldX < 10) {
-            worldX = 10;
-        } else if (worldX > MainGame.WORLD_WIDTH - 10) {
-            worldX = MainGame.WORLD_HEIGHT - 10;
-        }
-
-    }
-
-    //MODIFIES: this
-    //EFFECTS: Constrain player from leaving game boundary on y axis
-    public void yboundary() {
-        if (worldY < 10) {
-            worldY = 10;
-        } else if (worldY > MainGame.WORLD_HEIGHT - 10) {
-            worldY = MainGame.WORLD_HEIGHT - 10;
-        }
-
-    }
-
-    //MODIFIES: this
-    //EFFECTS: Apply damage to player health
-    public void healthDmg(int d) {
-        health = health - d;
-    }
-
-    //EFFECTS: Return x coordinate
-    public int getWorldX() {
-        return worldX;
-    }
-
-    //EFFECTS: Return y coordinate
-    public int getWorldY() {
-        return worldY;
-    }
-
-    //EFFECTS: Return player health
-    public int getHealth() {
-        return health;
+    public boolean hit(Entity e) {
+        Rectangle entity1 = new Rectangle(getWorldX() - MainGame.TILE_SIZE / 2,
+                getWorldY() - MainGame.TILE_SIZE / 2, MainGame.TILE_SIZE, MainGame.TILE_SIZE);;
+        Rectangle entity2 = new Rectangle(e.getWorldX() - MainGame.TILE_SIZE / 2,
+                e.getWorldY() - MainGame.TILE_SIZE / 2, MainGame.TILE_SIZE, MainGame.TILE_SIZE);
+        return entity1.intersects(entity2);
     }
 
     //MODIFIES: this
@@ -144,38 +47,26 @@ public class Player {
         health = HEALTH;
     }
 
-    //MODIFIES: this
-    //EFFECTS: Move player to new x and y position
-    public void movePlayer(int x, int y) {
-        worldX = x;
-        worldY = y;
+    public void animationTick() {
+        anmStill.tick();
+        anmDown.tick();
+        anmUp.tick();
+        anmRight.tick();
+        anmLeft.tick();
     }
 
-    public void setCollisonOn(Boolean collisonOn) {
-        this.collisonOn = collisonOn;
+    public void currentAnimation() {
+        if (velX < 0) {
+            image = anmLeft.getCurrentFrame();
+        } else if (velX > 0) {
+            image = anmRight.getCurrentFrame();
+        } else if (velY < 0) {
+            image = anmDown.getCurrentFrame();
+        } else if (velY > 0) {
+            image = anmUp.getCurrentFrame();
+        } else {
+            image = anmStill.getCurrentFrame();
+        }
     }
 
-    public Boolean getCollisonOn() {
-        return collisonOn;
-    }
-
-    public Rectangle getSolidArea() {
-        return solidArea;
-    }
-
-    public String getDir() {
-        return dir;
-    }
-
-    public void setDir(String dir) {
-        this.dir = dir;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
 }

@@ -90,6 +90,7 @@ public class FortuneChaser extends JFrame {
                 saveGameFile();
             } else if (e.getKeyCode() == KeyEvent.VK_R && (game.getisGameOver() || game.getIsGameWon())) {
                 game.start();
+                gp.resetTime();
             } else if (e.getKeyCode() == KeyEvent.VK_I && (game.getisGameOver() || game.getIsGameWon())) {
                 FortunePanel fp = new FortunePanel(game);
                 fp.update();

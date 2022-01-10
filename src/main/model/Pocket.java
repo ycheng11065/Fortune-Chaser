@@ -28,4 +28,8 @@ public class Pocket {
     public void clear() {
         pocket.clear();
     }
+
+    public int getTreasureAmount() {
+        return pocket.size();
+    }
 }

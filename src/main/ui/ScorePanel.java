@@ -18,7 +18,7 @@ public class ScorePanel extends JPanel {
     private MainGame game;
     private int cookieCounter;
     private int bootCounter;
-    private double playTime;
+    private double playTime = 0;
     private DecimalFormat decimalFormat;
 
     private BufferedImage transparentCookie;
@@ -27,7 +27,7 @@ public class ScorePanel extends JPanel {
     public ScorePanel(MainGame g) {
         game = g;
         setBackground(new Color(180, 180, 180));
-        decimalFormat = new DecimalFormat("#0.00");
+        decimalFormat = new DecimalFormat("#00.00");
 
         try {
             transparentCookie = ImageIO.read(getClass().getResourceAsStream(("/sprites/transparentCookie.png")));
@@ -45,7 +45,8 @@ public class ScorePanel extends JPanel {
 
         g.setFont(GamePanel.customFont70);
         g.setColor(Color.WHITE);
-        g.drawString(" X " + game.getTreasureScore(), game.TILE_SIZE / 2 + 60, game.TILE_SIZE + 7);
+        g.drawString(" X " + game.getPocket().getTreasureAmount(),
+                game.TILE_SIZE / 2 + 60, game.TILE_SIZE + 7);
         g.drawImage(transparentCookie, game.TILE_SIZE / 2, game.TILE_SIZE / 2 - 15
                 , game.TILE_SIZE, game.TILE_SIZE, null);
 
@@ -54,11 +55,24 @@ public class ScorePanel extends JPanel {
         g.setColor(new Color(192, 192, 192, 200));
         g.fillRect(game.TILE_SIZE * 11 + 40, 16, game.TILE_SIZE * 4 + 2, game.TILE_SIZE);
         g.setColor(Color.WHITE);
-        g.drawString("Time: " + decimalFormat.format(playTime), game.TILE_SIZE * 11 + 40, 68);
+        if (playTime <= 60) {
+            g.drawString("Time: " + decimalFormat.format(playTime) + " sec", game.TILE_SIZE * 11 + 40, 68);
+        } else if (playTime > 60) {
+            int timeInMins = (int) (playTime / 60);
+            int remainder = ((int) playTime) - 60 * timeInMins;
 
+            if (remainder < 10) {
+                g.drawString("Time: " +Integer.toString(timeInMins) +  ".0" + Integer.toString(remainder)+ " min",
+                        game.TILE_SIZE * 11 + 40, 68);
+            } else if (remainder >= 10) {
+                g.drawString("Time: " + Integer.toString(timeInMins) +  "." + Integer.toString(remainder)+ " min",
+                        game.TILE_SIZE * 11 + 40, 68);
+            }
+
+
+        }
         if (!game.getisGameOver() && !game.getIsGameWon() && game.getGameState() != game.PAUSESTATE) {
             playTime += (double) 1/60;
-
         }
 
         if (game.getMessageCode() == 1) {
@@ -78,5 +92,9 @@ public class ScorePanel extends JPanel {
                 game.setMessageCode(0);
             }
         }
+    }
+
+    public void resetPlayTime() {
+        playTime = 0;
     }
 }
