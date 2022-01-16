@@ -1,6 +1,7 @@
 package ui;
 
 //import manager.Handler;
+import manager.ImageLoader;
 import manager.World;
 import model.MainGame;
 import model.GameFile;
@@ -52,7 +53,7 @@ public class FortuneChaser extends JFrame {
         jsonStore = store;
         jsonWriter = new JsonWriter(jsonStore);
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        Image icon = ImageLoader.loadImage("/sprites/Fortune.jpg");
         setIconImage(icon);
 
         addCounter();

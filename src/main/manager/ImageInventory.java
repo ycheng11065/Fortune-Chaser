@@ -1,17 +1,30 @@
 package manager;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 public class ImageInventory {
     private static final int width = 30;
     private static final int height = 30;
 
-    private static BufferedImage[] player_still;
+    private static BufferedImage[] player_down_still;
+    private static BufferedImage[] player_right_still;
+    private static BufferedImage[] player_left_still;
+    private static BufferedImage[] player_up_still;
+
     private static BufferedImage[] player_down;
     private static BufferedImage[] player_up;
     private static BufferedImage[] player_left;
     private static BufferedImage[] player_right;
+
+    private static BufferedImage[] npcGuide_down_still;
+    private static BufferedImage[] npcGuide_right_still;
+    private static BufferedImage[] npcGuide_left_still;
+    private static BufferedImage[] npcGuide_up_still;
+
+    private static BufferedImage[] npcGuide_down;
+    private static BufferedImage[] npcGuide_up;
+    private static BufferedImage[] npcGuide_left;
+    private static BufferedImage[] npcGuide_right;
 
     private static BufferedImage lightGrass;
     private static BufferedImage darkGrass;
@@ -51,15 +64,31 @@ public class ImageInventory {
         SpriteSheet grassSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/grassTiles.png"));
         SpriteSheet treeSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/treeSprite.png"));
 
+        player_down_still = new BufferedImage[1];
+        player_up_still = new BufferedImage[1];
+        player_right_still = new BufferedImage[1];
+        player_left_still = new BufferedImage[1];
 
-
-        player_still = new BufferedImage[1];
         player_down = new BufferedImage[2];
         player_up = new BufferedImage[2];
         player_right = new BufferedImage[2];
         player_left = new BufferedImage[2];
 
-        player_still[0] = sheet1.crop(3, 256, width, 32);
+        npcGuide_down_still = new BufferedImage[1];
+        npcGuide_up_still = new BufferedImage[1];
+        npcGuide_right_still = new BufferedImage[1];
+        npcGuide_left_still = new BufferedImage[1];
+
+        npcGuide_down = new BufferedImage[2];
+        npcGuide_up = new BufferedImage[2];
+        npcGuide_right = new BufferedImage[2];
+        npcGuide_left = new BufferedImage[2];
+
+        //NPC guy
+        player_down_still[0] = sheet1.crop(3, 256, width, 32);
+        player_right_still[0] = sheet1.crop(3, 320, width, 32);
+        player_left_still[0] = sheet1.crop(3, 288, width, 32);
+        player_up_still[0] = sheet1.crop(3, 352, width, 32);
 
         player_down[0] = sheet1.crop(35, 256, width, 32);
         player_down[1] = sheet1.crop(67, 256, width, 32);
@@ -72,6 +101,24 @@ public class ImageInventory {
 
         player_right[0] = sheet1.crop(35, 320, width, 32);
         player_right[1] = sheet1.crop(65, 320, width, 32);
+
+        // NPC girl
+        npcGuide_down_still[0] = sheet1.crop(94, 256, width, 32);
+        npcGuide_up_still[0] = sheet1.crop(94, 352, width, 32);
+        npcGuide_right_still[0] = sheet1.crop(94, 320, width, 32);
+        npcGuide_left_still[0] = sheet1.crop(94, 288, width, 32);
+
+        npcGuide_down[0] = sheet1.crop(126, 256, width, 32);
+        npcGuide_down[1] = sheet1.crop(158, 256, width, 32);
+
+        npcGuide_up[0] = sheet1.crop(126, 352, width, 32);
+        npcGuide_up[1] = sheet1.crop(158, 352, width, 32);
+
+        npcGuide_left[0] = sheet1.crop(126, 288, width, 32);
+        npcGuide_left[1] = sheet1.crop(158, 288, width, 32);
+
+        npcGuide_right[0] = sheet1.crop(126, 320, width, 32);
+        npcGuide_right[1] = sheet1.crop(158, 320, width, 32);
 
         lightGrass = grassSheet.crop(96, 0, 32, 32);
         darkGrass = grassSheet.crop(32, 0, 32, 32);
@@ -108,8 +155,20 @@ public class ImageInventory {
 
     }
 
-    public static BufferedImage[] getPlayerStill() {
-        return player_still;
+    public static BufferedImage[] getPlayer_down_still() {
+        return player_down_still;
+    }
+
+    public static BufferedImage[] getPlayer_right_still() {
+        return player_right_still;
+    }
+
+    public static BufferedImage[] getPlayer_left_still() {
+        return player_left_still;
+    }
+
+    public static BufferedImage[] getPlayer_up_still() {
+        return player_up_still;
     }
 
     public static BufferedImage[] getPlayerDown() {
@@ -226,5 +285,37 @@ public class ImageInventory {
 
     public static BufferedImage getGrass15() {
         return grass15;
+    }
+
+    public static BufferedImage[] getNpcGuide_down_still() {
+        return npcGuide_down_still;
+    }
+
+    public static BufferedImage[] getNpcGuide_right_still() {
+        return npcGuide_right_still;
+    }
+
+    public static BufferedImage[] getNpcGuide_left_still() {
+        return npcGuide_left_still;
+    }
+
+    public static BufferedImage[] getNpcGuide_up_still() {
+        return npcGuide_up_still;
+    }
+
+    public static BufferedImage[] getNpcGuide_down() {
+        return npcGuide_down;
+    }
+
+    public static BufferedImage[] getNpcGuide_up() {
+        return npcGuide_up;
+    }
+
+    public static BufferedImage[] getNpcGuide_left() {
+        return npcGuide_left;
+    }
+
+    public static BufferedImage[] getNpcGuide_right() {
+        return npcGuide_right;
     }
 }

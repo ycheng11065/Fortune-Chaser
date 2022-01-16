@@ -15,6 +15,7 @@ public class Entity {
     protected Boolean collisonOn = false;
     protected int speed;
     protected BufferedImage image;
+    protected String direction = "front";
 
     public Entity(int h, int x, int y, MainGame game) {
         this.health = h;
@@ -159,5 +160,17 @@ public class Entity {
 
     public void setVelY(int velY) {
         this.velY = velY;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 }

@@ -1,5 +1,6 @@
 package ui;
 
+import manager.ImageLoader;
 import model.MainGame;
 import model.Treasure;
 
@@ -20,7 +21,7 @@ public class FortunePanel extends JFrame implements Panel {
 
     //EFFECT: Create a frame showing all fortune message from collected cookies
     public FortunePanel(MainGame frame) {
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        Image icon = ImageLoader.loadImage("/sprites/Fortune.jpg");
         setIconImage(icon);
         game = frame;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

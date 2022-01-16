@@ -1,11 +1,9 @@
 package model;
 
-import manager.Animation;
 import manager.ImageInventory;
 import manager.World;
 
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,6 +34,7 @@ public class MainGame {
     public static final int HUNGER_DMG = 1;
     public static final int PLAYSTATE = 1;
     public static final int PAUSESTATE = 2;
+    public static final int DIALOGUESTATE = 3;
 
     private Player player;
     private NpcGuide guide;
@@ -94,7 +93,7 @@ public class MainGame {
         isGameWon = false;
         foodScore = 0;
         treasureScore = 0;
-//        playMusic(0);
+        playMusic(0);
         gameCount++;
     }
 
@@ -108,7 +107,7 @@ public class MainGame {
             guide.move();
             guide.moveX();
             guide.moveY();
-
+            npcInteraction();
 //            System.out.println(player.getWorldX());
 //            System.out.println(player.getWorldY());
 //            updateFood();
@@ -129,6 +128,13 @@ public class MainGame {
 
         } else if (gameState == PAUSESTATE) {
 
+        }
+    }
+
+
+    public void npcInteraction() {
+        if (player.hit(guide)) {
+            gameState = DIALOGUESTATE;
         }
     }
 
@@ -183,12 +189,16 @@ public class MainGame {
 
         if (gameState != PAUSESTATE) {
             if (keyCode == KeyEvent.VK_W) {
+                player.setDirection("up");
                 player.setVelY(-1 * player.getSpeed());
             } else if (keyCode == KeyEvent.VK_S) {
+                player.setDirection("down");
                 player.setVelY(player.getSpeed());
             } else if (keyCode == KeyEvent.VK_A) {
+                player.setDirection("left");
                 player.setVelX(-1 * player.getSpeed());
             } else if (keyCode == KeyEvent.VK_D) {
+                player.setDirection("right");
                 player.setVelX(player.getSpeed());
             }
         }
@@ -481,6 +491,10 @@ public class MainGame {
 
     public boolean getIsGameWon() {
         return isGameWon;
+    }
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
     }
 
     public int getGameState() {

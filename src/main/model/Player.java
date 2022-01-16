@@ -14,7 +14,10 @@ import java.awt.image.BufferedImage;
 public class Player extends Entity {
     public static final int ANIMSPEED = 100;
 
-    private final Animation anmStill;
+    private final Animation anmStillDown;
+    private final Animation anmStillUp;
+    private final Animation anmStillRight;
+    private final Animation anmStillLeft;
     private final Animation anmDown;
     private final Animation anmUp;
     private final Animation anmLeft;
@@ -25,13 +28,18 @@ public class Player extends Entity {
         super(h, x, y, game);
         this.speed = 5;
 
-        anmStill = new Animation(ANIMSPEED, ImageInventory.getPlayerStill());
-        anmDown = new Animation(ANIMSPEED, ImageInventory.getPlayerUp());
-        anmUp = new Animation(ANIMSPEED, ImageInventory.getPlayerDown());
+        anmStillDown = new Animation(ANIMSPEED, ImageInventory.getPlayer_down_still());
+        anmStillUp = new Animation(ANIMSPEED, ImageInventory.getPlayer_up_still());
+        anmStillRight = new Animation(ANIMSPEED, ImageInventory.getPlayer_right_still());
+        anmStillLeft = new Animation(ANIMSPEED, ImageInventory.getPlayer_left_still());
+
+        anmUp = new Animation(ANIMSPEED, ImageInventory.getPlayerUp());
+        anmDown = new Animation(ANIMSPEED, ImageInventory.getPlayerDown());
         anmLeft = new Animation(ANIMSPEED, ImageInventory.getPlayerLeft());
         anmRight = new Animation(ANIMSPEED, ImageInventory.getPlayerRight());
-    }
 
+        image = anmStillDown.getCurrentFrame();
+    }
 
     public boolean hit(Entity e) {
         Rectangle entity1 = new Rectangle(getWorldX() - MainGame.TILE_SIZE / 2,
@@ -48,7 +56,11 @@ public class Player extends Entity {
     }
 
     public void animationTick() {
-        anmStill.tick();
+        anmStillDown.tick();
+        anmStillUp.tick();
+        anmStillRight.tick();
+        anmStillLeft.tick();
+
         anmDown.tick();
         anmUp.tick();
         anmRight.tick();
@@ -61,11 +73,19 @@ public class Player extends Entity {
         } else if (velX > 0) {
             image = anmRight.getCurrentFrame();
         } else if (velY < 0) {
-            image = anmDown.getCurrentFrame();
-        } else if (velY > 0) {
             image = anmUp.getCurrentFrame();
-        } else {
-            image = anmStill.getCurrentFrame();
+        } else if (velY > 0) {
+            image = anmDown.getCurrentFrame();
+        } else if (velX == 0 && velY == 0){
+            if (direction == "down") {
+                image = anmStillDown.getCurrentFrame();
+            } else if (direction == "right") {
+                image = anmStillRight.getCurrentFrame();
+            } else if (direction == "left") {
+                image = anmStillLeft.getCurrentFrame();
+            } else if (direction == "up") {
+                image = anmStillUp.getCurrentFrame();
+            }
         }
     }
 

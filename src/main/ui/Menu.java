@@ -1,5 +1,6 @@
 package ui;
 
+import manager.ImageLoader;
 import model.Event;
 import model.EventLog;
 import model.MainGame;
@@ -33,7 +34,7 @@ public class Menu extends JFrame implements ActionListener {
     //EFFECT: Creates a panel containing two buttons
     public Menu() {
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        Image icon = ImageLoader.loadImage("/sprites/Fortune.jpg");
         setIconImage(icon);
 
         gameTitle = new JLabel("Fortune Chaser");

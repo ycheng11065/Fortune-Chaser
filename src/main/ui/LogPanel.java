@@ -1,5 +1,6 @@
 package ui;
 
+import manager.ImageLoader;
 import model.Event;
 import model.EventLog;
 import model.MainGame;
@@ -21,7 +22,7 @@ public class LogPanel extends JFrame implements Panel {
 
     //EFFECT: Create a frame showing all fortune message from collected cookies
     public LogPanel(MainGame frame) {
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        Image icon = ImageLoader.loadImage("/sprites/Fortune.jpg");
         setIconImage(icon);
         game = frame;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

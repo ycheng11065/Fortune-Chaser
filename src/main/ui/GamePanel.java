@@ -17,9 +17,10 @@ import java.util.ArrayList;
  */
 
 public class GamePanel extends JPanel {
-    static Font customFont70;
-    static Font customFont40;
-    static Font customFont30;
+    public static int TRANSPARENCY = 160;
+    public static Font customFont70;
+    public static Font customFont40;
+    public static Font customFont30;
 
     private static final String PAUSE = "Paused";
     private static final String OVER = "Game Over!";
@@ -99,10 +100,35 @@ public class GamePanel extends JPanel {
         if (game.getGameState() == game.PAUSESTATE) {
             drawPauseScreen(g);
         }
+
+        if (game.getGameState() == game.DIALOGUESTATE) {
+            drawDialogueScreen(g);
+        }
     }
 
     public void resetTime() {
         sp.resetPlayTime();
+    }
+
+    public void drawDialogueScreen(Graphics g) {
+        int x = game.TILE_SIZE * 2;
+        int y = game.TILE_SIZE / 2;
+        int width = game.FRAMEWIDTH - (game.TILE_SIZE * 4);
+        int height = game.TILE_SIZE * 4;
+
+        drawSubWindow(x, y, width, height, g);
+    }
+
+    public void drawSubWindow(int x, int y, int width, int height, Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+
+        g.setColor(new Color(0 , 0, 0, TRANSPARENCY));
+        g.fillRoundRect(x, y, width, height, 35, 35);
+
+        g2.setColor(Color.white);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+
     }
 
     private void drawPauseScreen(Graphics g) {

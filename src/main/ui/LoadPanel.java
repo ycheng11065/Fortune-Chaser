@@ -1,5 +1,6 @@
 package ui;
 
+import manager.ImageLoader;
 import model.Treasure;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class LoadPanel extends JFrame implements Panel {
     //EFFECTS: Create a frame showing all fortune message from file
     public LoadPanel(List<Treasure> treasures) {
 
-        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Users\\ychen\\OneDrive\\Desktop\\Fortune.jpg");
+        Image icon = ImageLoader.loadImage("/sprites/Fortune.jpg");
         setIconImage(icon);
 
         this.treasures = treasures;
