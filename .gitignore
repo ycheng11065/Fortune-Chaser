@@ -1,2 +1,10 @@
 *.class
 workspace.xml
+
+# Ignore IntelliJ files
+.idea/
+*.iml
+
+# Ignore output/build directories
+/out/
+/build/
