@@ -1,6 +1,6 @@
 # Fortune Chaser, an 8-bit Java Game
 
-This game started as a basic dot-collecting project for an object-oriented programming course I took in my second year. Later, I decided to expand it into a full-fledged game with original music, maps, and unique art style. Though it's still a work in progress, I’m proud of the features it has developed considering it was my first computer science project. The visuals are a mix of pixel art that I created (like the trees and grass) along with some assets sourced online. The goal of the game is simple: collect all the fortune cookies and receive its fortunes. 
+This game started as a basic dot-collecting project for an object-oriented programming course I took in my second year. Later, I decided to expand it into a full-fledged game with original music, maps, and unique art style. Though it's still a work in progress, I’m proud of the features it has developed considering it was my first computer science project. The visuals are a mix of pixel art that I created (Trees and grass) along with some assets sourced online. The goal of the game is simple: collect all the fortune cookies and receive its fortunes. 
 
 ## Features
 
