@@ -150,7 +150,7 @@ public class GamePanel extends JPanel {
         game.getPlayer().currentAnimation();
         game.getPlayer().draw(g);
         g.setColor(Color.cyan);
-        g.drawRect(game.getScreenx(),game.getScreeny() , MainGame.TILE_SIZE, MainGame.TILE_SIZE);
+//        g.drawRect(game.getScreenx(),game.getScreeny() , MainGame.TILE_SIZE, MainGame.TILE_SIZE);
 //        g.drawRect(game.getPlayer().getWorldX() - MainGame.TILE_SIZE / 2,
 //                game.getPlayer().getWorldY() - MainGame.TILE_SIZE / 2, MainGame.TILE_SIZE, MainGame.TILE_SIZE);
 //        g.setColor(Color.cyan);
