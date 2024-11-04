@@ -11,7 +11,7 @@ This game started as a basic dot-collecting project for an object-oriented progr
 - **User Interface**: Basic UI elements to display score, lives, and other game information.
 
 ## Technology
-- **Java and Java Swing**
+- **Java and Swing**
 
 ## Screenshots
 
